@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Straight Pipe
   type: 0
+  icon: {fileID: 21300000, guid: 2451af557a632fe48a099088de6afecc, type: 3}
   prefab: {fileID: 0}

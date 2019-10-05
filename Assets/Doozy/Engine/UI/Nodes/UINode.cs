@@ -159,6 +159,11 @@ namespace Doozy.Engine.UI.Nodes
                 case UIButtonBehaviorType.OnPointerUp:
                 case UIButtonBehaviorType.OnSelected:
                 case UIButtonBehaviorType.OnDeselected:
+                case UIButtonBehaviorType.OnBeginDrag:
+                case UIButtonBehaviorType.OnDrag:
+                case UIButtonBehaviorType.OnEndDrag:
+                case UIButtonBehaviorType.OnDragOver:
+                case UIButtonBehaviorType.OnDrop:
                     return;
                 default: throw new ArgumentOutOfRangeException();
             }
