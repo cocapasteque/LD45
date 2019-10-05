@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Crafting/Recipe", fileName = "New recipe")]
 public class Recipe: SerializedScriptableObject
 {
+    public string itemName;
     public Dictionary<GameItem, int> compos;
     public GameItem result;
 
@@ -23,5 +24,12 @@ public class Recipe: SerializedScriptableObject
             }
         }
         return true;
+    }
+
+    public override bool Equals(object other)
+    {
+        var recipe = other as Recipe;
+        if (recipe == null) return false;
+        return recipe.itemName == itemName;
     }
 }

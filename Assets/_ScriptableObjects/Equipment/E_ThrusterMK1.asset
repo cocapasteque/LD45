@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b7597c796c445196de64a6dbc4d505, type: 3}
   m_Name: E_ThrusterMK1
   m_EditorClassIdentifier: 
-  itemName: 
-  type: 0
+  itemName: Thruster MK1
+  type: 1
   prefab: {fileID: 0}

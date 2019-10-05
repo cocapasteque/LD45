@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b7597c796c445196de64a6dbc4d505, type: 3}
   m_Name: Copper Cog
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Copper Cog
   type: 0
   prefab: {fileID: 0}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e3481c93a414245a0cd9000b0850b14, type: 3}
-  m_Name: Circuit Board Recipe
+  m_Name: R_Circuit Board
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -67,4 +67,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  itemName: Circuit Board
   result: {fileID: 11400000, guid: f6ef5fb900050384290c6220563dba21, type: 2}

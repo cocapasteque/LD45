@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -291,8 +291,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e8ebee74e9b4b7aa55a2090bf5a317e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 006b6a1d8669fb74da86a542a2e8aa83, type: 2}
+    - {fileID: 11400000, guid: f4618c20eb042dd4c8318fdc467861c2, type: 2}
+    - {fileID: 11400000, guid: a457eac1aff99db4189d276f0bf28994, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: unlockedBlueprints
+      Entry: 7
+      Data: 0|UnityEngine.Rendering.SerializedDictionary`2[[Blueprint, Assembly-CSharp],[System.Boolean,
+        mscorlib]], Unity.RenderPipelines.Core.Runtime
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[Blueprint, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 0
+    - Name: $v
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 1
+    - Name: $v
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 2
+    - Name: $v
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   recipes:
   - {fileID: 11400000, guid: f1d93c88c4ee9e747bc731886fa2c746, type: 2}
+  - {fileID: 11400000, guid: fcd3d8b6ae6742c469c0179da88551a3, type: 2}
 --- !u!4 &1486897014
 Transform:
   m_ObjectHideFlags: 0
