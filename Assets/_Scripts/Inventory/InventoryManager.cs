@@ -56,27 +56,27 @@ public class InventoryManager : SerializedMonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            RemoveItem(Items[0]);
+            AddItem(Items[4]);
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            RemoveItem(Items[1]);
+            AddItem(Items[5]);
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            RemoveItem(Items[2]);
+            AddItem(Items[6]);
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            RemoveItem(Items[3]);
+            AddItem(Items[7]);
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            AddBlueprint(Bps[0]);
+            AddItem(Items[8]);
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            AddBlueprint(Bps[1]);
+            AddItem(Items[9]);
         }
     }
 
