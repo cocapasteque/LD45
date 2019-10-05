@@ -113,7 +113,6 @@ public class PlayerScript : MonoBehaviour
         {
             foreach (Thruster thruster in m_thrusters)
             {
-                Debug.Log("Adding force: " + m_player_mesh.transform.forward * thruster.Thrust_Strength * Time.deltaTime);
                 m_rb.AddForce(m_player_mesh.transform.forward * thruster.Thrust_Strength * Time.deltaTime);
             }
         }
