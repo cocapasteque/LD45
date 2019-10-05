@@ -15,7 +15,7 @@ using Doozy.Engine.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-    
+
 #if dUI_TextMeshPro
 using TMPro;
 #endif
@@ -38,7 +38,7 @@ namespace Doozy.Engine.UI
     [RequireComponent(typeof(Button))]
     [DisallowMultipleComponent]
     [DefaultExecutionOrder(DoozyExecutionOrder.UIBUTTON)]
-    public class UIButton : UIComponentBase<UIButton>, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, ISelectHandler, IDeselectHandler
+    public class UIButton : UIComponentBase<UIButton>, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, ISelectHandler, IDeselectHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
     {
         #region UNITY_EDITOR
 
@@ -269,6 +269,12 @@ namespace Doozy.Engine.UI
         /// <summary> Loop animation triggered when the button gets selected (happens only after OnSelected UIButtonBehavior has been triggered) </summary>
         public UIButtonLoopAnimation SelectedLoopAnimation = new UIButtonLoopAnimation(ButtonLoopAnimationType.Selected);
 
+        public UIButtonBehavior OnDrag = new UIButtonBehavior(UIButtonBehaviorType.OnDrag);
+        public UIButtonBehavior OnBeginDrag = new UIButtonBehavior(UIButtonBehaviorType.OnBeginDrag);
+        public UIButtonBehavior OnEndDrag = new UIButtonBehavior(UIButtonBehaviorType.OnEndDrag);
+        public UIButtonBehavior OnDrop = new UIButtonBehavior(UIButtonBehaviorType.OnDrop);
+        public UIButtonBehavior OnDragOver = new UIButtonBehavior(UIButtonBehaviorType.OnDragOver);
+
         /// <summary> Determines what type of label this button has </summary>
         public TargetLabel TargetLabel;
 
@@ -365,13 +371,13 @@ namespace Doozy.Engine.UI
             ResetToStartValues();
 
             ReadyAllBehaviors();
-            
+
             if (m_disableButtonCoroutine == null) return;
             StopCoroutine(m_disableButtonCoroutine);
             m_disableButtonCoroutine = null;
             EnableButton();
         }
-        
+
         private void Update()
         {
             if (InputData.InputMode == InputMode.None) return;
@@ -443,6 +449,11 @@ namespace Doozy.Engine.UI
 
             TriggerButtonBehavior(OnDeselected);
         }
+
+        void IDragHandler.OnDrag(PointerEventData eventData) { TriggerButtonBehavior(OnDrag); }
+        void IBeginDragHandler.OnBeginDrag(PointerEventData eventData) { TriggerButtonBehavior(OnBeginDrag); }
+        void IEndDragHandler.OnEndDrag(PointerEventData eventData) { TriggerButtonBehavior(OnEndDrag); }
+        void IDropHandler.OnDrop(PointerEventData eventData) { TriggerButtonBehavior(OnDrop); }
 
         #endregion
 
@@ -632,6 +643,51 @@ namespace Doozy.Engine.UI
             PrintBehaviorDebugMessage(OnSelected, "executed", debug);
         }
 
+        public void ExecuteOnDrag(bool debug = false)
+        {
+            if (!OnDrag.Enabled) return;
+            PrintBehaviorDebugMessage(OnDrag, "initiated", debug);
+            StartCoroutine(ExecuteButtonBehaviorEnumerator(OnDrag));
+            if (OnDeselected.DisableInterval > 0) StartCoroutine(DisableButtonBehaviorEnumerator(OnDrag));
+            PrintBehaviorDebugMessage(OnDrag, "executed", debug);
+        }
+
+        public void ExecuteOnBeginDrag(bool debug = false)
+        {
+            if (!OnBeginDrag.Enabled) return;
+            PrintBehaviorDebugMessage(OnBeginDrag, "initiated", debug);
+            StartCoroutine(ExecuteButtonBehaviorEnumerator(OnBeginDrag));
+            if (OnDeselected.DisableInterval > 0) StartCoroutine(DisableButtonBehaviorEnumerator(OnBeginDrag));
+            PrintBehaviorDebugMessage(OnBeginDrag, "executed", debug);
+        }
+
+        public void ExecuteOnEndDrag(bool debug = false)
+        {
+            if (!OnEndDrag.Enabled) return;
+            PrintBehaviorDebugMessage(OnEndDrag, "initiated", debug);
+            StartCoroutine(ExecuteButtonBehaviorEnumerator(OnEndDrag));
+            if (OnDeselected.DisableInterval > 0) StartCoroutine(DisableButtonBehaviorEnumerator(OnEndDrag));
+            PrintBehaviorDebugMessage(OnEndDrag, "executed", debug);
+        }
+
+        public void ExecuteOnDrop(bool debug = false)
+        {
+            if (!OnDrop.Enabled) return;
+            PrintBehaviorDebugMessage(OnDrop, "initiated", debug);
+            StartCoroutine(ExecuteButtonBehaviorEnumerator(OnDrop));
+            if (OnDeselected.DisableInterval > 0) StartCoroutine(DisableButtonBehaviorEnumerator(OnDrop));
+            PrintBehaviorDebugMessage(OnDrop, "executed", debug);
+        }
+
+        public void ExecuteOnDragOver(bool debug = false)
+        {
+            if (!OnDragOver.Enabled) return;
+            PrintBehaviorDebugMessage(OnDragOver, "initiated", debug);
+            StartCoroutine(ExecuteButtonBehaviorEnumerator(OnDragOver));
+            if (OnDeselected.DisableInterval > 0) StartCoroutine(DisableButtonBehaviorEnumerator(OnDragOver));
+            PrintBehaviorDebugMessage(OnDragOver, "executed", debug);
+        }
+
         /// <summary> Load all the preset animations, that are set to be loaded at runtime, for all the enabled behaviors </summary>
         public void LoadPresets()
         {
@@ -726,7 +782,7 @@ namespace Doozy.Engine.UI
             if (DebugComponent || debug) DDebug.Log("(" + ButtonName + ") UIButton - " + behavior.BehaviorType + " - " + action + ".", this);
         }
 
-        private void TriggerButtonBehavior(UIButtonBehavior behavior, bool debug = false)
+        protected void TriggerButtonBehavior(UIButtonBehavior behavior, bool debug = false)
         {
             switch (behavior.BehaviorType)
             {
@@ -778,6 +834,26 @@ namespace Doozy.Engine.UI
                     if (behavior.Enabled) PrintBehaviorDebugMessage(behavior, "triggered", debug);
                     ExecuteOnButtonDeselected();
                     break;
+                case UIButtonBehaviorType.OnDrag:
+                    if (behavior.Enabled) PrintBehaviorDebugMessage(behavior, "triggered", debug);
+                    ExecuteOnDrag();
+                    break;
+                case UIButtonBehaviorType.OnBeginDrag:
+                    if (behavior.Enabled) PrintBehaviorDebugMessage(behavior, "triggered", debug);
+                    ExecuteOnBeginDrag();
+                    break;
+                case UIButtonBehaviorType.OnEndDrag:
+                    if (behavior.Enabled) PrintBehaviorDebugMessage(behavior, "triggered", debug);
+                    ExecuteOnEndDrag();
+                    break;
+                case UIButtonBehaviorType.OnDrop:
+                    if (behavior.Enabled) PrintBehaviorDebugMessage(behavior, "triggered", debug);
+                    ExecuteOnDrop();
+                    break;
+                case UIButtonBehaviorType.OnDragOver:
+                    if (behavior.Enabled) PrintBehaviorDebugMessage(behavior, "triggered", debug);
+                    ExecuteOnDragOver();
+                    break;
             }
         }
 
@@ -805,7 +881,7 @@ namespace Doozy.Engine.UI
             OnSelected.Ready = true;
             OnDeselected.Ready = true;
         }
-        
+
         private void RegisterLongClick(bool debug = false)
         {
             if (OnLongClick.Enabled) PrintBehaviorDebugMessage(OnLongClick, "registered", debug);
@@ -836,16 +912,16 @@ namespace Doozy.Engine.UI
         {
             switch (behaviorType)
             {
-                case UIButtonBehaviorType.OnClick:        return OnClick.Enabled;
-                case UIButtonBehaviorType.OnDoubleClick:  return OnDoubleClick.Enabled;
-                case UIButtonBehaviorType.OnLongClick:    return OnLongClick.Enabled;
-                case UIButtonBehaviorType.OnRightClick:   return OnRightClick.Enabled;
+                case UIButtonBehaviorType.OnClick: return OnClick.Enabled;
+                case UIButtonBehaviorType.OnDoubleClick: return OnDoubleClick.Enabled;
+                case UIButtonBehaviorType.OnLongClick: return OnLongClick.Enabled;
+                case UIButtonBehaviorType.OnRightClick: return OnRightClick.Enabled;
                 case UIButtonBehaviorType.OnPointerEnter: return OnPointerEnter.Enabled;
-                case UIButtonBehaviorType.OnPointerExit:  return OnPointerExit.Enabled;
-                case UIButtonBehaviorType.OnPointerDown:  return OnPointerDown.Enabled;
-                case UIButtonBehaviorType.OnPointerUp:    return OnPointerUp.Enabled;
-                case UIButtonBehaviorType.OnSelected:     return OnSelected.Enabled;
-                case UIButtonBehaviorType.OnDeselected:   return OnDeselected.Enabled;
+                case UIButtonBehaviorType.OnPointerExit: return OnPointerExit.Enabled;
+                case UIButtonBehaviorType.OnPointerDown: return OnPointerDown.Enabled;
+                case UIButtonBehaviorType.OnPointerUp: return OnPointerUp.Enabled;
+                case UIButtonBehaviorType.OnSelected: return OnSelected.Enabled;
+                case UIButtonBehaviorType.OnDeselected: return OnDeselected.Enabled;
                 default: throw new ArgumentOutOfRangeException("behaviorType", behaviorType, null);
             }
         }
@@ -884,6 +960,11 @@ namespace Doozy.Engine.UI
                 case UIButtonBehaviorType.OnPointerExit:
                 case UIButtonBehaviorType.OnPointerDown:
                 case UIButtonBehaviorType.OnPointerUp:
+                case UIButtonBehaviorType.OnDrag:
+                case UIButtonBehaviorType.OnBeginDrag:
+                case UIButtonBehaviorType.OnEndDrag:
+                case UIButtonBehaviorType.OnDrop:
+                case UIButtonBehaviorType.OnDragOver:
                     if (!Interactable || UIInteractionsDisabled) yield break;
                     break;
             }
@@ -922,6 +1003,7 @@ namespace Doozy.Engine.UI
                     StartSelectedLoopAnimation();
                     break;
                 case UIButtonBehaviorType.OnDeselected:
+                case UIButtonBehaviorType.OnEndDrag:
                     StartNormalLoopAnimation();
                     break;
                 case UIButtonBehaviorType.OnClick:
@@ -1050,9 +1132,9 @@ namespace Doozy.Engine.UI
         }
 
         #endregion
-        
+
         #region Static Methods
-        
+
         /// <summary>
         /// Returns a list of all the UIButton, registered in the UIButton.Database, with the given button category and button name.
         /// <para/> If no UIButton is found, it will return an empty list.
@@ -1071,7 +1153,7 @@ namespace Doozy.Engine.UI
 
             return views; //return list
         }
-        
+
         #endregion
     }
 }

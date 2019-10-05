@@ -43,6 +43,11 @@ namespace Doozy.Editor
             public static GUIStyle OnPointerEnter { get { return Styles.GetStyle(Styles.StyleName.IconOnPointerEnter); } }
             public static GUIStyle OnPointerExit { get { return Styles.GetStyle(Styles.StyleName.IconOnPointerExit); } }
             public static GUIStyle OnPointerUp { get { return Styles.GetStyle(Styles.StyleName.IconOnPointerUp); } }
+            public static GUIStyle OnDrag { get { return Styles.GetStyle(Styles.StyleName.IconOnDrag); } }
+            public static GUIStyle OnDragOver { get { return Styles.GetStyle(Styles.StyleName.IconOnDragOver); } }
+            public static GUIStyle OnBeginDrag { get { return Styles.GetStyle(Styles.StyleName.IconOnBeginDrag); } }
+            public static GUIStyle OnEndDrag { get { return Styles.GetStyle(Styles.StyleName.IconOnEndDrag); } }
+            public static GUIStyle OnDrop { get { return Styles.GetStyle(Styles.StyleName.IconOnDrop); } }
             public static GUIStyle OrientationDetector { get { return Styles.GetStyle(Styles.StyleName.IconOrientationDetector); } }
             public static GUIStyle Portrait { get { return Styles.GetStyle(Styles.StyleName.IconPortrait); } }
             public static GUIStyle PunchAnimation { get { return Styles.GetStyle(Styles.StyleName.IconPunchAnimation); } }

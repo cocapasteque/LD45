@@ -21,7 +21,7 @@ namespace Doozy.Engine.UI
         ///     UIButton behavior when the pointer performs a left mouse button long click over the button
         /// </summary>
         OnLongClick,
-     
+
         /// <summary>
         ///     UIButton behavior when the pointer enters (hovers in) over the button's area
         /// </summary>
@@ -51,10 +51,16 @@ namespace Doozy.Engine.UI
         ///     UIButton behavior when the button gets deselected
         /// </summary>
         OnDeselected,
-           
+
         /// <summary>
         ///     UIButton behavior when the pointer performs a right mouse button click over the button
         /// </summary>
-        OnRightClick
+        OnRightClick,
+
+        OnBeginDrag,
+        OnDrag,
+        OnEndDrag,
+        OnDrop,
+        OnDragOver
     }
 }

@@ -5,7 +5,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
-using Language = Doozy.Engine.Language;  
+using Language = Doozy.Engine.Language;
 
 // ReSharper disable InconsistentNaming
 
@@ -382,6 +382,11 @@ namespace Doozy.Engine.Utils
         public string OnAnimationFinished = "OnAnimationFinished";
         public string OnAnimationStart = "OnAnimationStart";
         public string OnClick = "OnClick";
+        public string OnDrag = "OnDrag";
+        public string OnDragOver = "OnDragOver";
+        public string OnBeginDrag = "OnBeginDrag";
+        public string OnEndDrag = "OnEndDrag";
+        public string OnDrop = "OnDrop";
         public string OnDeselected = "OnDeselected";
         public string OnDisable = "OnDisable";
         public string OnDoubleClick = "OnDoubleClick";
