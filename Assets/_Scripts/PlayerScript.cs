@@ -38,6 +38,9 @@ public class PlayerScript : MonoBehaviour
     [Tooltip("the camera that focuses on this player. is on same hierarchy level as the character model")]
     [SerializeField]
     private Camera m_camera;
+
+    // distance of the camera to the player mesh (directly above)
+    private float m_default_camera_distance;
     
     private Rigidbody m_rb;
     /// <summary>
@@ -84,6 +87,8 @@ public class PlayerScript : MonoBehaviour
         m_rb.AddForce(this.transform.forward * 20.0f);
 
         m_shooting_coroutine = StartCoroutine(shoot());
+
+        m_default_camera_distance = (m_camera.transform.position - m_player_mesh.transform.position).magnitude;
     }
 
     // Update is called once per frame
@@ -116,6 +121,9 @@ public class PlayerScript : MonoBehaviour
                 m_rb.AddForce(m_player_mesh.transform.forward * thruster.Thrust_Strength * Time.deltaTime);
             }
         }
+
+        // the faster the player is, the further away the camera is from him
+        m_camera.transform.position = m_player_mesh.transform.position + Vector3.up*(m_default_camera_distance + m_rb.velocity.magnitude);
     }
 
     private void OnCollisionEnter(Collision collision)
