@@ -46,57 +46,57 @@ public abstract class ThrusterBase : MonoBehaviour
     /// <summary>
     /// what to do when being prompted to thrust forwards
     /// </summary>
-    /// <param name="n_rb">the rigidbody that gets thrusted</param>
-    public virtual void forward(Rigidbody n_rb)
+    /// <param name="n_player">the player object, which holds a number of properties relevant for movement</param>
+    public virtual void forward(PlayerScript n_player)
     {}
 
     /// <summary>
     /// what to do when being prompted to thrust backwards
     /// </summary>
-    /// <param name="n_rb">the rigidbody that gets thrusted</param>
-    public virtual void backward(Rigidbody n_rb)
+    /// <param name="n_player">the player object, which holds a number of properties relevant for movement</param>
+    public virtual void backward(PlayerScript n_player)
     {}
 
     /// <summary>
     /// what to do when being prompted to thrust to the right
     /// </summary>
-    /// <param name="n_rb">the rigidbody that gets thrusted</param>
-    public virtual void right(Rigidbody n_rb)
+    /// <param name="n_player">the player object, which holds a number of properties relevant for movement</param>
+    public virtual void right(PlayerScript n_player)
     {}
 
     /// <summary>
     /// what to do when being prompted to thrust to the left
     /// </summary>
-    /// <param name="n_rb">the rigidbody that gets thrusted</param>
-    public virtual void left(Rigidbody n_rb)
+    /// <param name="n_player">the player object, which holds a number of properties relevant for movement</param>
+    public virtual void left(PlayerScript n_player)
     {}
 
     /// <summary>
     /// placeholder, not sure what to do with this yet
     /// </summary>
-    /// <param name="n_rb"></param>
-    public virtual void boost(Rigidbody n_rb)
+    /// <param name="n_player">the player object, which holds a number of properties relevant for movement</param>
+    public virtual void boost(PlayerScript n_player)
     {}
 
     /// <summary>
     /// function that gets called when the left mouse button has been clicked
     /// </summary>
-    /// <param name="n_rb">the rigidbody of the object this thruster is thrusting</param>
-    public virtual void leftclick(Rigidbody n_rb)
+    /// <param name="n_player">the player object, which holds a number of properties relevant for movement</param>
+    public virtual void leftclick(PlayerScript n_player)
     {}
 
     /// <summary>
     /// function that gets called when the left mouse button has been clicked
     /// </summary>
-    /// <param name="n_rb">the rigidbody of the object this thruster is thrusting</param>
-    public virtual void rightclick(Rigidbody n_rb)
+    /// <param name="n_player">the player object, which holds a number of properties relevant for movement</param>
+    public virtual void rightclick(PlayerScript n_player)
     {}
 
     /// <summary>
     /// function that gets called when the middle mouse button has been clicked
     /// </summary>
-    /// <param name="n_rb">the rigidbody of the object this thruster is thrusting</param>
-    public virtual void middleclick(Rigidbody n_rb)
+    /// <param name="n_player">the player object, which holds a number of properties relevant for movement</param>
+    public virtual void middleclick(PlayerScript n_player)
     { }
 
     #endregion

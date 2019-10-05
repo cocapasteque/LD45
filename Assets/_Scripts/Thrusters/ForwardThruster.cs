@@ -7,10 +7,10 @@ using UnityEngine;
 
 public class ForwardThruster : ThrusterBase
 {
-    public override void forward(Rigidbody n_rb)
+    public override void forward(PlayerScript n_player)
     {
-        base.forward(n_rb);
+        base.forward(n_player);
 
-        n_rb.AddForce(n_rb.transform.forward * m_thrust_strength);
+        n_player.RigidBody.AddForce(n_player.Player_Mesh.transform.forward * m_thrust_strength);
     }
 }
