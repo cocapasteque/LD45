@@ -53,12 +53,12 @@ MonoBehaviour:
     SelectedNodes: []
     DeletedNodes: []
   CurrentView: 1
-  CurrentPanOffset: {x: 697.9017, y: 331.5142}
+  CurrentPanOffset: {x: 426.80527, y: 206.50496}
   DefaultPanOffset: {x: 0, y: 0}
   IsDirty: 0
   SaveCurrentGraphWithControlS: 1
   CurrentDotAnimationSpeed: 0.6
-  CurrentZoom: 0.9
+  CurrentZoom: 0.5
   DefaultDotAnimationSpeed: 0.6
   DefaultZoom: 1
   ShowNodeNotes: 1
