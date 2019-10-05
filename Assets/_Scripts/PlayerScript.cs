@@ -4,6 +4,8 @@
  * - combat
  */
 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -13,13 +15,20 @@ public class PlayerScript : MonoBehaviour
     #region VARIABLES
 
     // player has a dedicated reference to a thruster, since it so vital for the gameplay and things need to move quick
-    private ThrusterBase m_thruster;
+    private List<Thruster> m_thrusters;
 
     // as with thruster, the players weapon is a singularly important piece of equipment, so we have a direct reference for it
-    private WeaponBase m_weapon;
+    private List<WeaponBase> m_weapons;
 
     // plane though the origin with world up vector, which represens the plane the game takes place on in top-down fashion
     private Plane m_game_plane;
+
+    // some flags so I can track when I need to be watching cooldowns for shooting and when I should be accelerating
+    private bool m_shooting = false;
+    private bool m_thrusting = false;
+
+    // coroutine we hold just in case we want to stop it again at some point
+    private Coroutine m_shooting_coroutine;
 
     [Tooltip("the gameobject that represents the player in the scene, a.k.a. the naked guy")]
     [SerializeField]
@@ -29,10 +38,6 @@ public class PlayerScript : MonoBehaviour
     [Tooltip("the camera that focuses on this player. is on same hierarchy level as the character model")]
     [SerializeField]
     private Camera m_camera;
-
-    [Tooltip("The mouse sensitivity with which the player rotates")]
-    [SerializeField]
-    private float m_rotation_speed = 10.0f;
     
     private Rigidbody m_rb;
     /// <summary>
@@ -52,8 +57,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     #endregion
-
-
+    
     #region UNITY LIFECYCLE
 
     // Start is called before the first frame update
@@ -69,12 +73,17 @@ public class PlayerScript : MonoBehaviour
 
         // make the default game plane through origin with world up
         m_game_plane = new Plane(Vector3.up, Vector3.zero);
+
+        m_weapons = new List<WeaponBase>();
+        m_thrusters = new List<Thruster>();
     }
 
     private void Start()
     {
         // give the player an initial push toward the thruster
         m_rb.AddForce(this.transform.forward * 20.0f);
+
+        m_shooting_coroutine = StartCoroutine(shoot());
     }
 
     // Update is called once per frame
@@ -89,21 +98,33 @@ public class PlayerScript : MonoBehaviour
             m_player_mesh.transform.LookAt(hit);
         }
 
-        process_input();
+        // left = shooting
+        if (Input.GetMouseButtonDown(0))
+        {
+            m_shooting = true;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            m_shooting = false;
+        }
+
+        // right = thrusting
+        if (Input.GetMouseButton(1))
+        {
+            foreach (Thruster thruster in m_thrusters)
+            {
+                Debug.Log("Adding force: " + m_player_mesh.transform.forward * thruster.Thrust_Strength * Time.deltaTime);
+                m_rb.AddForce(m_player_mesh.transform.forward * thruster.Thrust_Strength * Time.deltaTime);
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Thruster")
         {
-            if (m_thruster != null)
-            {
-                Destroy(m_thruster.gameObject);
-                m_thruster = null;
-            }
-
             // we need to set our thruster to the one we now collided with, and get rid of it visually be reparenting it and scaling to 0
-            m_thruster = collision.gameObject.GetComponent<ThrusterBase>();
+            m_thrusters.Add(collision.gameObject.GetComponent<Thruster>());
             collision.transform.SetParent(this.transform);
             collision.transform.localScale = Vector3.zero;
         }
@@ -111,45 +132,29 @@ public class PlayerScript : MonoBehaviour
 
     #endregion
 
-
     #region PLAYER FUNCTIONS
 
     /// <summary>
-    /// deal with any and all input relevant to the palyer and trigger the appropriate functions on the right components
+    /// coroutine that runs in the background the whiole time and will shoot when we have the left mouse button pressed
     /// </summary>
-    private void process_input()
+    /// <returns></returns>
+    private IEnumerator shoot()
     {
-        // forward the movement controls to possible thruster implementation
-        if (Input.GetKeyDown(KeyCode.W))
+        // dear lord have mercy, we are indenting all the way to hell now...get ready
+        while (true)
         {
-            m_thruster?.forward(this);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            m_thruster?.left(this);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            m_thruster?.backward(this);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            m_thruster?.right(this);
-        }
+            if (m_shooting)
+            {
+                foreach (WeaponBase weapon in m_weapons)
+                {
+                    if (!weapon.On_Cooldown)
+                    {
+                        weapon.shoot();
+                    }
+                }
+            }
 
-        // forward mouse input to the appropriate components
-        if (Input.GetMouseButtonDown(0))    // LEFT
-        {
-            m_thruster?.leftclick(this);
-            m_weapon?.shoot();
-        }
-        if (Input.GetMouseButtonDown(1))    // RIGHT
-        {
-            m_thruster?.rightclick(this);
-        }
-        if (Input.GetMouseButtonDown(2))    // MIDDLE
-        {
-            m_thruster?.middleclick(this);
+            yield return new WaitForEndOfFrame();
         }
     }
 
