@@ -9,6 +9,7 @@
       <e p="Assets" t="Include">
         <e p="_Scripts" t="Include">
           <e p="Crafting" t="Include">
+            <e p="Blueprint.cs" t="Include" />
             <e p="CraftingSystem.cs" t="Include" />
             <e p="CraftingTest.cs" t="Include" />
             <e p="GameItem.cs" t="Include" />
@@ -17,10 +18,7 @@
           <e p="PlayerScript.cs" t="Include" />
           <e p="Settings.cs" t="Include" />
           <e p="Thrusters" t="Include">
-            <e p="ForwardThruster.cs" t="Include" />
-            <e p="MouseThrust.cs" t="Include" />
-            <e p="MultidirectionalThruster.cs" t="Include" />
-            <e p="ThrusterBase.cs" t="Include" />
+            <e p="Thruster.cs" t="Include" />
           </e>
           <e p="WeaponBase.cs" t="Include" />
         </e>
@@ -306,6 +304,9 @@
                 <e p="ArrowAnimatorEditor.cs" t="Include" />
                 <e p="UIDrawerEditor.cs" t="Include" />
                 <e p="UIDrawerListenerEditor.cs" t="Include" />
+              </e>
+              <e p="UIImage" t="Include">
+                <e p="UIImageEditor.cs" t="Include" />
               </e>
               <e p="UIPopup" t="Include">
                 <e p="UIPopupEditor.cs" t="Include" />
@@ -597,6 +598,17 @@
                 <e p="UIDrawerListener.cs" t="Include" />
                 <e p="UIDrawerMessage.cs" t="Include" />
                 <e p="UIDrawerSettings.cs" t="Include" />
+              </e>
+              <e p="UIImage" t="Include">
+                <e p="Enums" t="Include">
+                  <e p="CornerType.cs" t="Include" />
+                </e>
+                <e p="Resources" t="Include">
+                  <e p="UIImageShader.shader" t="Include" />
+                </e>
+                <e p="UIImage.cs" t="Include" />
+                <e p="UIImageCorner.cs" t="Include" />
+                <e p="UIImageData.cs" t="Include" />
               </e>
               <e p="UIPopup" t="Include">
                 <e p="UIPopup.cs" t="Include" />

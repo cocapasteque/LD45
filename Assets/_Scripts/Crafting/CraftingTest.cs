@@ -16,13 +16,7 @@ public class CraftingTest : MonoBehaviour
     void Craft()
     {
         var result = CraftingSystem.Instance.Craft(craftingBar);
-        if (result)
-        {
-            Debug.Log($"Congrats ! You just crafted {result}");
-        }
-        else
-        {
-            Debug.Log($"Invalid recipe. You crafted nothing.");
-        }
+        
+        Debug.Log(result ? $"Congrats ! You just crafted {result}" : $"Invalid recipe. You crafted nothing.");
     }
 }
