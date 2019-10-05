@@ -42,7 +42,7 @@ namespace Doozy.Editor.UI
             get
             {
                 if (m_target != null) return m_target;
-                m_target = (UIButton) target;
+                m_target = (UIButton)target;
                 return m_target;
             }
         }
@@ -79,6 +79,11 @@ namespace Doozy.Editor.UI
             m_onDeselected,
             m_normalLoopAnimation,
             m_selectedLoopAnimation,
+            m_onDrag,
+            m_onBeginDrag,
+            m_onEndDrag,
+            m_onDrop,
+            m_onDragOver,
             m_inputData,
             m_targetLabel,
             m_textLabel,
@@ -97,6 +102,11 @@ namespace Doozy.Editor.UI
             m_onDeselectedExpanded,
             m_normalLoopAnimationExpanded,
             m_selectedLoopAnimationExpanded,
+            m_onDragExpanded,
+            m_onBeginDragExpanded,
+            m_onEndDragExpanded,
+            m_onDropExpanded,
+            m_onDragOverExpanded,
             m_soundDataExpanded,
             m_effectExpanded,
             m_animatorEventsExpanded,
@@ -137,6 +147,11 @@ namespace Doozy.Editor.UI
             m_onDeselected = GetProperty(PropertyName.OnDeselected);
             m_normalLoopAnimation = GetProperty(PropertyName.NormalLoopAnimation);
             m_selectedLoopAnimation = GetProperty(PropertyName.SelectedLoopAnimation);
+            m_onDrag = GetProperty(PropertyName.OnDrag);
+            m_onBeginDrag = GetProperty(PropertyName.OnBeginDrag);
+            m_onEndDrag = GetProperty(PropertyName.OnEndDrag);
+            m_onDrop = GetProperty(PropertyName.OnDrop);
+            m_onDragOver = GetProperty(PropertyName.OnDragOver);
             m_inputData = GetProperty(PropertyName.InputData);
             m_targetLabel = GetProperty(PropertyName.TargetLabel);
             m_textLabel = GetProperty(PropertyName.TextLabel);
@@ -162,6 +177,11 @@ namespace Doozy.Editor.UI
             m_onDeselectedExpanded = GetAnimBool(m_onDeselected.propertyPath, m_onDeselected.isExpanded);
             m_normalLoopAnimationExpanded = GetAnimBool(m_normalLoopAnimation.propertyPath, m_normalLoopAnimation.isExpanded);
             m_selectedLoopAnimationExpanded = GetAnimBool(m_selectedLoopAnimation.propertyPath, m_selectedLoopAnimation.isExpanded);
+            m_onDragExpanded = GetAnimBool(m_onDrag.propertyPath, m_onDrag.isExpanded);
+            m_onBeginDragExpanded = GetAnimBool(m_onBeginDrag.propertyPath, m_onBeginDrag.isExpanded);
+            m_onEndDragExpanded = GetAnimBool(m_onEndDrag.propertyPath, m_onEndDrag.isExpanded);
+            m_onDropExpanded = GetAnimBool(m_onDrop.propertyPath, m_onDrop.isExpanded);
+            m_onDragOverExpanded = GetAnimBool(m_onDragOver.propertyPath, m_onDragOver.isExpanded);
 
             m_soundDataExpanded = GetAnimBool("SOUND");
             m_effectExpanded = GetAnimBool("EFFECT");
@@ -175,7 +195,7 @@ namespace Doozy.Editor.UI
         protected override void OnEnable()
         {
             base.OnEnable();
-            m_target = (UIButton) target;
+            m_target = (UIButton)target;
 
             AdjustPositionRotationAndScaleToRoundValues(Target.RectTransform);
 
@@ -193,6 +213,11 @@ namespace Doozy.Editor.UI
             AddInfoMessage(UIButtonBehaviorType.OnRightClick.ToString(), new InfoMessage(DGUI.Icon.OnClick, DGUI.Colors.LightOrDarkColorName, DGUI.Colors.DarkOrLightColorName, "", false, Repaint));
             AddInfoMessage(UIButtonBehaviorType.OnSelected.ToString(), new InfoMessage(DGUI.Icon.OnButtonSelect, DGUI.Colors.LightOrDarkColorName, DGUI.Colors.DarkOrLightColorName, "", false, Repaint));
             AddInfoMessage(UIButtonBehaviorType.OnDeselected.ToString(), new InfoMessage(DGUI.Icon.OnButtonDeselect, DGUI.Colors.LightOrDarkColorName, DGUI.Colors.DarkOrLightColorName, "", false, Repaint));
+            AddInfoMessage(UIButtonBehaviorType.OnDrag.ToString(), new InfoMessage(DGUI.Icon.OnDrag, DGUI.Colors.LightOrDarkColorName, DGUI.Colors.DarkOrLightColorName, "", false, Repaint));
+            AddInfoMessage(UIButtonBehaviorType.OnDragOver.ToString(), new InfoMessage(DGUI.Icon.OnDragOver, DGUI.Colors.LightOrDarkColorName, DGUI.Colors.DarkOrLightColorName, "", false, Repaint));
+            AddInfoMessage(UIButtonBehaviorType.OnBeginDrag.ToString(), new InfoMessage(DGUI.Icon.OnBeginDrag, DGUI.Colors.LightOrDarkColorName, DGUI.Colors.DarkOrLightColorName, "", false, Repaint));
+            AddInfoMessage(UIButtonBehaviorType.OnEndDrag.ToString(), new InfoMessage(DGUI.Icon.OnEndDrag, DGUI.Colors.LightOrDarkColorName, DGUI.Colors.DarkOrLightColorName, "", false, Repaint));
+            AddInfoMessage(UIButtonBehaviorType.OnDrop.ToString(), new InfoMessage(DGUI.Icon.OnDrop, DGUI.Colors.LightOrDarkColorName, DGUI.Colors.DarkOrLightColorName, "", false, Repaint));
             AddInfoMessage(ButtonLoopAnimationType.Normal.ToString(), new InfoMessage(DGUI.Icon.Loop, DGUI.Colors.LightOrDarkColorName, DGUI.Colors.DarkOrLightColorName, "", false, Repaint));
             AddInfoMessage(ButtonLoopAnimationType.Selected.ToString(), new InfoMessage(DGUI.Icon.Loop, DGUI.Colors.LightOrDarkColorName, DGUI.Colors.DarkOrLightColorName, "", false, Repaint));
 
@@ -330,7 +355,7 @@ namespace Doozy.Editor.UI
         private void DrawInputData()
         {
             SerializedProperty inputModeProperty = GetProperty(PropertyName.InputMode, m_inputData);
-            var inputMode = (InputMode) inputModeProperty.enumValueIndex;
+            var inputMode = (InputMode)inputModeProperty.enumValueIndex;
             SerializedProperty enableAlternateInputsProperty = GetProperty(PropertyName.EnableAlternateInputs, m_inputData);
             SerializedProperty keyCodeProperty = GetProperty(PropertyName.KeyCode, m_inputData);
             SerializedProperty keyCodeAltProperty = GetProperty(PropertyName.KeyCodeAlt, m_inputData);
@@ -460,13 +485,26 @@ namespace Doozy.Editor.UI
             else DrawBehavior(UILabels.OnLongClick, Target.OnLongClick, m_onLongClick, DGUI.Icon.OnLongClick, m_onLongClickExpanded);
             if (!Settings.ShowOnRightClick) Target.OnRightClick.Enabled = false;
             else DrawBehavior(UILabels.OnRightClick, Target.OnRightClick, m_onRightClick, DGUI.Icon.OnClick, m_onRightClickExpanded);
-            
+
             if (Settings.ShowOnClick || Settings.ShowOnDoubleClick || Settings.ShowOnLongClick || Settings.ShowOnRightClick) GUILayout.Space(DGUI.Properties.Space(4));
 
             if (!Settings.ShowOnButtonSelected) Target.OnSelected.Enabled = false;
             else DrawBehavior(UILabels.OnSelected, Target.OnSelected, m_onSelected, DGUI.Icon.OnButtonSelect, m_onSelectedExpanded);
             if (!Settings.ShowOnButtonDeselected) Target.OnDeselected.Enabled = false;
             else DrawBehavior(UILabels.OnDeselected, Target.OnDeselected, m_onDeselected, DGUI.Icon.OnButtonDeselect, m_onDeselectedExpanded);
+
+            if (Settings.ShowOnDrag || Settings.ShowOnBeginDrag || Settings.ShowOnEndDrag || Settings.ShowOnDrop || Settings.ShowOnDragOver) GUILayout.Space(DGUI.Properties.Space(4));
+
+            if (!Settings.ShowOnDrag) Target.OnDrag.Enabled = false;
+            else DrawBehavior(UILabels.OnDrag, Target.OnDrag, m_onDrag, DGUI.Icon.OnDrag, m_onDragExpanded);
+            if (!Settings.ShowOnBeginDrag) Target.OnBeginDrag.Enabled = false;
+            else DrawBehavior(UILabels.OnBeginDrag, Target.OnBeginDrag, m_onBeginDrag, DGUI.Icon.OnBeginDrag, m_onBeginDragExpanded);
+            if (!Settings.ShowOnEndDrag) Target.OnEndDrag.Enabled = false;
+            else DrawBehavior(UILabels.OnEndDrag, Target.OnEndDrag, m_onEndDrag, DGUI.Icon.OnEndDrag, m_onEndDragExpanded);
+            if (!Settings.ShowOnDrop) Target.OnDrop.Enabled = false;
+            else DrawBehavior(UILabels.OnDrop, Target.OnDrop, m_onDrop, DGUI.Icon.OnDrop, m_onDropExpanded);
+            if (!Settings.ShowOnDragOver) Target.OnDragOver.Enabled = false;
+            else DrawBehavior(UILabels.OnDragOver, Target.OnDragOver, m_onDragOver, DGUI.Icon.OnDragOver, m_onDragOverExpanded);
         }
 
         private void DrawBehavior(string behaviorName, UIButtonBehavior behavior, SerializedProperty behaviorProperty, GUIStyle animationIcon, AnimBool behaviorExpanded)
@@ -480,7 +518,7 @@ namespace Doozy.Editor.UI
             SerializedProperty presetNameProperty = GetProperty(PropertyName.PresetName, behaviorProperty);
             SerializedProperty onTriggerProperty = GetProperty(PropertyName.OnTrigger, behaviorProperty);
             SerializedProperty buttonAnimationTypeProperty = GetProperty(PropertyName.ButtonAnimationType, behaviorProperty);
-            var buttonAnimationType = (ButtonAnimationType) buttonAnimationTypeProperty.enumValueIndex;
+            var buttonAnimationType = (ButtonAnimationType)buttonAnimationTypeProperty.enumValueIndex;
 
             AnimBool animationTypeExpanded = GetAnimBool(buttonAnimationTypeProperty.propertyPath, buttonAnimationTypeProperty.isExpanded);
             AnimBool onTriggerExpanded = GetAnimBool(onTriggerProperty.propertyPath, onTriggerProperty.isExpanded);
@@ -618,7 +656,7 @@ namespace Doozy.Editor.UI
                                                 {
                                                     foreach (Object targetObject in serializedObject.targetObjects)
                                                     {
-                                                        var targetButton = (UIButton) targetObject;
+                                                        var targetButton = (UIButton)targetObject;
                                                         switch (behavior.BehaviorType)
                                                         {
                                                             case UIButtonBehaviorType.OnClick:
@@ -692,7 +730,7 @@ namespace Doozy.Editor.UI
                                                 {
                                                     foreach (Object targetObject in serializedObject.targetObjects)
                                                     {
-                                                        var targetButton = (UIButton) targetObject;
+                                                        var targetButton = (UIButton)targetObject;
                                                         switch (behavior.BehaviorType)
                                                         {
                                                             case UIButtonBehaviorType.OnClick:
@@ -901,7 +939,7 @@ namespace Doozy.Editor.UI
         {
             SerializedProperty buttonAnimationType = GetProperty(PropertyName.ButtonAnimationType, behaviorProperty);
             AnimBool animationTypeExpanded = GetAnimBool(buttonAnimationType.propertyPath);
-            var selectedAnimationType = (ButtonAnimationType) buttonAnimationType.enumValueIndex;
+            var selectedAnimationType = (ButtonAnimationType)buttonAnimationType.enumValueIndex;
 
             if (DGUI.FadeOut.Begin(animationTypeExpanded, false))
             {
@@ -1289,7 +1327,7 @@ namespace Doozy.Editor.UI
                                     {
                                         foreach (Object targetObject in serializedObject.targetObjects)
                                         {
-                                            var targetButton = (UIButton) targetObject;
+                                            var targetButton = (UIButton)targetObject;
                                             switch (buttonLoopAnimation.LoopAnimationType)
                                             {
                                                 case ButtonLoopAnimationType.Normal:
@@ -1332,7 +1370,7 @@ namespace Doozy.Editor.UI
 
                                     GUILayout.BeginHorizontal();
                                     {
-                                        if (DGUI.Bar.Draw(DGUI.Doozy.GetAnimationTypeName(UILabels.Move, (AnimationType) move.FindPropertyRelative(PropertyName.AnimationType.ToString()).enumValueIndex),
+                                        if (DGUI.Bar.Draw(DGUI.Doozy.GetAnimationTypeName(UILabels.Move, (AnimationType)move.FindPropertyRelative(PropertyName.AnimationType.ToString()).enumValueIndex),
                                                           barSize,
                                                           DGUI.Bar.Caret.CaretType.Move,
                                                           moveExpanded.target ? DGUI.Colors.MoveColorName : DGUI.Colors.DisabledTextColorName,
@@ -1341,7 +1379,7 @@ namespace Doozy.Editor.UI
 
                                         GUILayout.Space(DGUI.Properties.Space());
 
-                                        if (DGUI.Bar.Draw(DGUI.Doozy.GetAnimationTypeName(UILabels.Rotate, (AnimationType) rotate.FindPropertyRelative(PropertyName.AnimationType.ToString()).enumValueIndex),
+                                        if (DGUI.Bar.Draw(DGUI.Doozy.GetAnimationTypeName(UILabels.Rotate, (AnimationType)rotate.FindPropertyRelative(PropertyName.AnimationType.ToString()).enumValueIndex),
                                                           barSize,
                                                           DGUI.Bar.Caret.CaretType.Rotate,
                                                           rotateExpanded.target ? DGUI.Colors.RotateColorName : DGUI.Colors.DisabledTextColorName,
@@ -1350,7 +1388,7 @@ namespace Doozy.Editor.UI
 
                                         GUILayout.Space(DGUI.Properties.Space());
 
-                                        if (DGUI.Bar.Draw(DGUI.Doozy.GetAnimationTypeName(UILabels.Scale, (AnimationType) scale.FindPropertyRelative(PropertyName.AnimationType.ToString()).enumValueIndex),
+                                        if (DGUI.Bar.Draw(DGUI.Doozy.GetAnimationTypeName(UILabels.Scale, (AnimationType)scale.FindPropertyRelative(PropertyName.AnimationType.ToString()).enumValueIndex),
                                                           barSize,
                                                           DGUI.Bar.Caret.CaretType.Scale,
                                                           scaleExpanded.target ? DGUI.Colors.ScaleColorName : DGUI.Colors.DisabledTextColorName,
@@ -1359,7 +1397,7 @@ namespace Doozy.Editor.UI
 
                                         GUILayout.Space(DGUI.Properties.Space());
 
-                                        if (DGUI.Bar.Draw(DGUI.Doozy.GetAnimationTypeName(UILabels.Fade, (AnimationType) fade.FindPropertyRelative(PropertyName.AnimationType.ToString()).enumValueIndex),
+                                        if (DGUI.Bar.Draw(DGUI.Doozy.GetAnimationTypeName(UILabels.Fade, (AnimationType)fade.FindPropertyRelative(PropertyName.AnimationType.ToString()).enumValueIndex),
                                                           barSize,
                                                           DGUI.Bar.Caret.CaretType.Fade,
                                                           fadeExpanded.target ? DGUI.Colors.FadeColorName : DGUI.Colors.DisabledTextColorName,
@@ -1422,7 +1460,7 @@ namespace Doozy.Editor.UI
 
         private void DrawLabelOptions()
         {
-            var targetLabel = (TargetLabel) m_targetLabel.enumValueIndex;
+            var targetLabel = (TargetLabel)m_targetLabel.enumValueIndex;
             bool hasLabel = targetLabel != TargetLabel.None;
 
             ColorName backgroundColorName = DGUI.Colors.GetBackgroundColorName(hasLabel, ComponentColorName);
@@ -1469,7 +1507,7 @@ namespace Doozy.Editor.UI
             m_textSerializedObject = null;
             m_textProperty = null;
 
-            switch ((TargetLabel) m_targetLabel.enumValueIndex)
+            switch ((TargetLabel)m_targetLabel.enumValueIndex)
             {
                 case TargetLabel.Text:
                     if (Target.TextLabel == null) return;

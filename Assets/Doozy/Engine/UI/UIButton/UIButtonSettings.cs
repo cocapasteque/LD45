@@ -87,6 +87,11 @@ namespace Doozy.Engine.UI.Settings
         public bool ShowOnPointerExit = true;
         public bool ShowOnPointerUp = true;
         public bool ShowSelectedLoopAnimation = true;
+        public bool ShowOnDrag = true;
+        public bool ShowOnBeginDrag = true;
+        public bool ShowOnEndDrag = true;
+        public bool ShowOnDrop = true;
+        public bool ShowOnDragOver = true;
         public float DisableButtonBetweenClicksInterval = BETWEEN_CLICKS_DISABLE_INTERVAL;
         public string RenamePrefix = DEFAULT_RENAME_PREFIX;
         public string RenameSuffix = DEFAULT_RENAME_SUFFIX;
@@ -122,14 +127,14 @@ namespace Doozy.Engine.UI.Settings
             button.DeselectButtonAfterClick = DeselectButtonAfterClick;
             button.DisableButtonBetweenClicksInterval = DisableButtonBetweenClicksInterval;
             button.InputData = new InputData
-                               {
-                                   InputMode = InputMode,
-                                   EnableAlternateInputs = EnableAlternateInputs,
-                                   KeyCode = KeyCode,
-                                   KeyCodeAlt = KeyCodeAlt,
-                                   VirtualButtonName = VirtualButtonName,
-                                   VirtualButtonNameAlt = VirtualButtonNameAlt
-                               };
+            {
+                InputMode = InputMode,
+                EnableAlternateInputs = EnableAlternateInputs,
+                KeyCode = KeyCode,
+                KeyCodeAlt = KeyCodeAlt,
+                VirtualButtonName = VirtualButtonName,
+                VirtualButtonNameAlt = VirtualButtonNameAlt
+            };
             button.NormalLoopAnimation = new UIButtonLoopAnimation(ButtonLoopAnimationType.Normal);
             button.OnClick = new UIButtonBehavior(UIButtonBehaviorType.OnClick, true);
             button.OnDeselected = new UIButtonBehavior(UIButtonBehaviorType.OnDeselected);
@@ -141,6 +146,10 @@ namespace Doozy.Engine.UI.Settings
             button.OnPointerExit = new UIButtonBehavior(UIButtonBehaviorType.OnPointerExit);
             button.OnPointerUp = new UIButtonBehavior(UIButtonBehaviorType.OnPointerUp);
             button.OnSelected = new UIButtonBehavior(UIButtonBehaviorType.OnSelected);
+            button.OnBeginDrag = new UIButtonBehavior(UIButtonBehaviorType.OnBeginDrag);
+            button.OnDrag = new UIButtonBehavior(UIButtonBehaviorType.OnDrag);
+            button.OnEndDrag = new UIButtonBehavior(UIButtonBehaviorType.OnEndDrag);
+            button.OnDrop = new UIButtonBehavior(UIButtonBehaviorType.OnDrop);
             button.SelectedLoopAnimation = new UIButtonLoopAnimation(ButtonLoopAnimationType.Selected);
         }
 
