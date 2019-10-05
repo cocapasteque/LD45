@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Spring
   type: 0
+  icon: {fileID: 21300000, guid: a3ea9a6edfd89044fa4ba4eb9daf18d3, type: 3}
   prefab: {fileID: 0}

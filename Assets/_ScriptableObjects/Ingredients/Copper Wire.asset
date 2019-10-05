@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Copper Wire
   type: 0
+  icon: {fileID: 21300000, guid: 767e7b768db69564c9cecd1a0866f8b2, type: 3}
   prefab: {fileID: 0}

@@ -52,5 +52,6 @@ public class CraftingSystem : SerializedMonoBehaviour
     public void UnlockBlueprint(Blueprint bp)
     {
         unlockedBlueprints[bp] = true;
+        InventoryManager.Instance.AddBlueprint(bp);
     }
 }
