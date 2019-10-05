@@ -225,9 +225,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 93323188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38835bf47a7fb6d44a707186d73da008, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ba3a3398d23c514d9a879306e431724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_thrust_strength: 10
 --- !u!54 &93323194
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -348,9 +349,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 97740884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a32764a5e307e644b9a70b6042c07597, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ba3a3398d23c514d9a879306e431724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_thrust_strength: 10
 --- !u!54 &97740890
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -700,9 +702,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 923379814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38835bf47a7fb6d44a707186d73da008, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ba3a3398d23c514d9a879306e431724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_thrust_strength: 10
 --- !u!54 &923379820
 Rigidbody:
   m_ObjectHideFlags: 0
