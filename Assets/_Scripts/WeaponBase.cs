@@ -5,8 +5,6 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Collider))]
 public abstract class WeaponBase : MonoBehaviour
 {
     [Tooltip("cooldown between shots [in seconds]")]

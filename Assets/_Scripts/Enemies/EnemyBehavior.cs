@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class EnemyBehavior : MonoBehaviour
 {
@@ -9,9 +10,9 @@ public class EnemyBehavior : MonoBehaviour
     private float _acceleration;
     private Rigidbody _rb;
     private PlayerScript _player;
-    private WeaponBase _weapon;
+    private WeaponBase[] _weapons;
     
-    public void Init(float hitPoints, float aggroRange, float acceleration, Vector3 startVelocity, WeaponBase weapon)
+    public void Init(float hitPoints, float aggroRange, float acceleration, Vector3 startVelocity)
     {
         _rb = GetComponent<Rigidbody>();
         _rb.velocity = startVelocity;
@@ -19,7 +20,7 @@ public class EnemyBehavior : MonoBehaviour
         _hitPoints = hitPoints;
         _aggroRange = aggroRange;
         _acceleration = acceleration;
-        _weapon = weapon;
+        _weapons = GetComponentsInChildren<WeaponBase>();
         StartCoroutine(Shoot());
     }
 
@@ -46,7 +47,10 @@ public class EnemyBehavior : MonoBehaviour
     {
         while (true)
         {
-            _weapon.Shoot(_rb.velocity.magnitude);
+            foreach (var weapon in _weapons.Where(weapon => !weapon.On_Cooldown))
+            {
+                weapon.Shoot(_rb.velocity.magnitude);
+            }
             yield return new WaitForEndOfFrame();
         }
     }

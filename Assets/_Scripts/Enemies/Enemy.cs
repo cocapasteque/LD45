@@ -11,5 +11,4 @@ public class Enemy : ScriptableObject
     public Vector2 acceleration;
     [Tooltip("In relation to spawn distance")]
     public Vector2 aggroRange;
-    public WeaponBase weapon;
 }

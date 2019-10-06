@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33a434ed3fddab44ac3f56cdd3660a3, type: 3}
   m_Name: Enemy1
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 4590483384771132322, guid: 3e31e14ed14b3f243badf66327eb748e, type: 3}
   level: 0
-  hitPoints: {x: 0, y: 0}
-  acceleration: {x: 0, y: 0}
-  aggroRange: {x: 0, y: 0}
-  weapon: {fileID: 0}
+  hitPoints: {x: 1, y: 1}
+  acceleration: {x: 1, y: 2}
+  aggroRange: {x: 10000, y: Infinity}

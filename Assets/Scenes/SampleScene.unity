@@ -451,6 +451,26 @@ MonoBehaviour:
   _fadePlane: {fileID: 187867967}
   _fadeTime: 5
   UIOpened: 0
+--- !u!1 &888862139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1358932576309753992, guid: 9c954962487846047895b3753912e774,
+    type: 3}
+  m_PrefabInstance: {fileID: 1358932574880648034}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &888862140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888862139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73d5df48d9f06642b17b547e267b61f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemies:
+  - {fileID: 11400000, guid: 220af465f5a10f5489141f150fc71fbc, type: 2}
 --- !u!1 &1151424021
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,6 +961,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1522141830061750437, guid: 55cc6f649b26b0e49b68b18911435baa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1522141830061750425, guid: 55cc6f649b26b0e49b68b18911435baa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1050,6 +1075,10 @@ PrefabInstance:
         type: 3}
       propertyPath: _fovCurve.m_Curve.Array.data[0].value
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 605689761, guid: 55cc6f649b26b0e49b68b18911435baa, type: 3}
+      propertyPath: damage
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1522141831329575176, guid: 55cc6f649b26b0e49b68b18911435baa,
         type: 3}
@@ -1277,6 +1306,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.00001963228
       objectReference: {fileID: 0}
+    - target: {fileID: 7952177858795360998, guid: 4d4165a4d7a9c2544ad0795a5dc99496,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8994978066224495125, guid: 4d4165a4d7a9c2544ad0795a5dc99496,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 8994978066224495125, guid: 4d4165a4d7a9c2544ad0795a5dc99496,
+        type: 3}
     - target: {fileID: 7952177857472380988, guid: 4d4165a4d7a9c2544ad0795a5dc99496,
         type: 3}
       propertyPath: m_Sprite
@@ -1301,22 +1341,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: bb99d9ff98ea0c34ab235af28301fb33,
         type: 3}
-    - target: {fileID: 7952177858795360998, guid: 4d4165a4d7a9c2544ad0795a5dc99496,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7952177859200655206, guid: 4d4165a4d7a9c2544ad0795a5dc99496,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: bb99d9ff98ea0c34ab235af28301fb33,
-        type: 3}
-    - target: {fileID: 8994978066224495125, guid: 4d4165a4d7a9c2544ad0795a5dc99496,
-        type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 8994978066224495125, guid: 4d4165a4d7a9c2544ad0795a5dc99496,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d4165a4d7a9c2544ad0795a5dc99496, type: 3}

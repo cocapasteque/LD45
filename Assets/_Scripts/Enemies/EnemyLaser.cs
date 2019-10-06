@@ -7,6 +7,7 @@ public class EnemyLaser : WeaponBase
     [SerializeField] private GameObject laserBeam;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private float maxScatteringAngle;
+    [SerializeField] private float damage;
 
     public override void Shoot(float flySpeed)
     {
@@ -18,6 +19,6 @@ public class EnemyLaser : WeaponBase
         beam.transform.LookAt(player.transform);
         beam.transform.rotation = Quaternion.Euler(beam.transform.rotation.x, beam.transform.rotation.y + Random.Range(-maxScatteringAngle, maxScatteringAngle), beam.transform.rotation.z);
 
-        beam.GetComponent<Projectile>()?.Launch(projectileSpeed + flySpeed);
+        beam.GetComponent<Projectile>()?.Launch(projectileSpeed + flySpeed, damage);
     }
 }
