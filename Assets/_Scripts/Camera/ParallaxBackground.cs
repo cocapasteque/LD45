@@ -1,235 +1,121 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
+using UnityEditor;
 
 public class ParallaxBackground : MonoBehaviour
 {
-    public GameObject tile;
-    public GameObject containter;
-    public GameObject player;
-    public int SlowDownFactor = 300;
-    public float tileWidth = 5f;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private GameObject _backgroundObject;
+    private SpriteRenderer _currentBackground;
+    [SerializeField] private LayerMask _backgroundLayer;
 
-    private List<GameObject> TilesArr = new List<GameObject> { };
+    [SerializeField] private float _debugLength = 50f;
+    [SerializeField] private float _extent = .25f;
 
-//this is a method for shifting the tiles in any direction.
-    public List<GameObject> arrangeTiles(List<GameObject> arrayToModify, int startingTile, bool columnMod,
-        int iterationQty, int xMod, int yMod, int newArrayStartingIndex)
+    private void Update()
     {
-        List<GameObject> arrayClone = new List<GameObject>(arrayToModify);
-        //COLUMN
-        if (columnMod)
+        GetBackground();
+        CheckSides();
+        HandleOutOfSightBackground();
+    }
+
+    private void GetBackground()
+    {
+        Ray centerRay = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+        RaycastHit hit;
+        if (Physics.Raycast(centerRay, out hit, 100, _backgroundLayer))
         {
-            for (int i = startingTile; i < startingTile + (iterationQty * 3); i += 3)
-            {
-                //modifying columns does not need an IF statement with respect to the starting index and the insert index because I can only move the column 2 spaces away max, 
-                //but the script iterates by 3 units so the each next iteration retains the correct element in the 2nd and 3rd position upon completion of the loop.  VERY CONFUSING BUT IT WORKS!
-
-                arrayClone[i].transform.position =
-                    arrayClone[i].transform.position + new Vector3(xMod * tileWidth, yMod * tileWidth, 0);
-                GameObject thisTile = arrayClone[i];
-                arrayClone.RemoveAt(i);
-                arrayClone.Insert((i - startingTile) + newArrayStartingIndex, thisTile);
-            }
-
-            return arrayClone;
-            //ROW
-        }
-        else
-        {
-            for (int i = startingTile; i < (startingTile + iterationQty); i++)
-            {
-                if (startingTile > newArrayStartingIndex)
-                {
-                    arrayClone[i].transform.position =
-                        arrayClone[i].transform.position + new Vector3(xMod * tileWidth, yMod * tileWidth, 0);
-                    GameObject thisTile = arrayClone[i];
-                    arrayClone.RemoveAt(i);
-                    arrayClone.Insert((i - startingTile) + newArrayStartingIndex, thisTile);
-                }
-                else
-                {
-                    arrayClone[startingTile].transform.position =
-                        arrayClone[startingTile].transform.position +
-                        new Vector3(xMod * tileWidth, yMod * tileWidth, 0);
-                    GameObject thisTile = arrayClone[startingTile];
-                    arrayClone.RemoveAt(startingTile);
-                    arrayClone.Add(thisTile);
-                }
-            }
-
-            return arrayClone;
+            _currentBackground = hit.collider.GetComponent<SpriteRenderer>();
         }
     }
 
-
-// Use this for initialization
-    void Start()
+    private void CheckSides()
     {
-        float pX = player.transform.position.x;
-        float pY = player.transform.position.y;
-        for (int i = 0; i < 9; i++)
+        var leftRay = _camera.ViewportPointToRay(new Vector3(0.5f, 0f - _extent));
+        var rightRay = _camera.ViewportPointToRay(new Vector3(0.5f, 1f + _extent));
+        var topRay = _camera.ViewportPointToRay(new Vector3(1f + _extent, 0.5f));
+        var bottomRay = _camera.ViewportPointToRay(new Vector3(0f - _extent, 0.5f));
+
+        var topRight = _camera.ViewportPointToRay(new Vector3(1 + _extent, 1 + _extent));
+        var topLeft = _camera.ViewportPointToRay(new Vector3(0 - _extent, 1 + _extent));
+        var botRight = _camera.ViewportPointToRay(new Vector3(1 + _extent, 0 - _extent));
+        var botLeft = _camera.ViewportPointToRay(new Vector3(0 - _extent, 0 - _extent));
+
+        Debug.DrawRay(leftRay.origin, leftRay.direction * _debugLength, Color.red);
+        Debug.DrawRay(rightRay.origin, rightRay.direction * _debugLength, Color.red);
+        Debug.DrawRay(topRay.origin, topRay.direction * _debugLength, Color.red);
+        Debug.DrawRay(bottomRay.origin, bottomRay.direction * _debugLength, Color.red);
+
+        Debug.DrawRay(topRight.origin, topRight.direction * _debugLength, Color.red);
+        Debug.DrawRay(topLeft.origin, topLeft.direction * _debugLength, Color.red);
+        Debug.DrawRay(botRight.origin, botRight.direction * _debugLength, Color.red);
+        Debug.DrawRay(botLeft.origin, botLeft.direction * _debugLength, Color.red);
+
+        var bounds = _currentBackground.bounds;
+
+        // If not raycast to background, we need to add one.
+        if (!Physics.Raycast(leftRay, out _, 100, _backgroundLayer))
         {
-            GameObject Tile = Instantiate(tile);
-            Tile.name = "t" + i;
-            Tile.transform.SetParent(containter.transform, false);
-            Tile.transform.localScale = new Vector2(tileWidth, tileWidth);
-            int rotation = Random.Range(0, 3);
-            Tile.transform.Rotate(0, 0, rotation * 90);
-
-            if (i <= 2)
-            {
-                Tile.transform.position = new Vector2((pX - 1 + i) * tileWidth, pY + tileWidth);
-            }
-            else if (i >= 3 && i <= 5)
-            {
-                Tile.transform.position = new Vector2((pX - 4 + i) * tileWidth, pY);
-            }
-            else
-            {
-                Tile.transform.position = new Vector2((pX - 7 + i) * tileWidth, pY - tileWidth);
-            }
-
-            TilesArr.Add(Tile);
+            var background = Instantiate(_backgroundObject, transform);
+            background.transform.position =
+                new Vector3(bounds.center.x + 2 * bounds.extents.x, bounds.center.y, bounds.center.z);
         }
+
+        if (!Physics.Raycast(rightRay, out _, 100, _backgroundLayer))
+        {
+            var background = Instantiate(_backgroundObject, transform);
+            background.transform.position =
+                new Vector3(bounds.center.x - 2 * bounds.extents.x, bounds.center.y, bounds.center.z);
+        }
+
+        if (!Physics.Raycast(topRay, out _, 100, _backgroundLayer))
+        {
+            var background = Instantiate(_backgroundObject, transform);
+            background.transform.position =
+                new Vector3(bounds.center.x, bounds.center.y, bounds.center.z + 2 * bounds.extents.z);
+        }
+
+        if (!Physics.Raycast(bottomRay, out _, 100, _backgroundLayer))
+        {
+            var background = Instantiate(_backgroundObject, transform);
+            background.transform.position =
+                new Vector3(bounds.center.x, bounds.center.y, bounds.center.z - 2 * bounds.extents.z);
+        }
+
+        if (!Physics.Raycast(topRight, out _, 100, _backgroundLayer))
+        {
+            var background = Instantiate(_backgroundObject, transform);
+            background.transform.position =
+                new Vector3(bounds.center.x + 2 * bounds.extents.x, bounds.center.y,
+                    bounds.center.z + 2 * bounds.extents.z);
+        }
+
+        if (!Physics.Raycast(topLeft, out _, 100, _backgroundLayer))
+        {
+            var background = Instantiate(_backgroundObject, transform);
+            background.transform.position =
+                new Vector3(bounds.center.x - 2 * bounds.extents.x, bounds.center.y,
+                    bounds.center.z + 2 * bounds.extents.z);        }
+
+        if (!Physics.Raycast(botRight, out _, 100, _backgroundLayer))
+        {
+            var background = Instantiate(_backgroundObject, transform);
+            background.transform.position =
+                new Vector3(bounds.center.x + 2 * bounds.extents.x, bounds.center.y,
+                    bounds.center.z - 2 * bounds.extents.z);        }
+
+        if (!Physics.Raycast(botLeft, out _, 100, _backgroundLayer))
+        {
+            var background = Instantiate(_backgroundObject, transform);
+            background.transform.position =
+                new Vector3(bounds.center.x - 2 * bounds.extents.x, bounds.center.y,
+                    bounds.center.z - 2 * bounds.extents.z);        }
     }
 
-// Update is called once per frame
-    private int counter = 0;
-
-    void Update()
+    private void HandleOutOfSightBackground()
     {
-        if (counter == 0)
-        {
-            Vector2 playerVelocity = player.GetComponent<Rigidbody2D>().velocity / SlowDownFactor;
-            Vector2 pTrans = (Vector2) player.transform.position;
-
-
-            //we just grab player velocity and slowed it down. 
-            //tile index starts at 0 on each Update() call
-            int tileIndex = 0;
-            foreach (var Tile in TilesArr)
-            {
-                //loop starts with complete=false 
-                bool complete = false;
-
-
-                Tile.transform.position = new Vector2(Tile.transform.position.x - playerVelocity.x,
-                    Tile.transform.position.y - playerVelocity.y);
-                Vector2 tTrans = Tile.transform.position;
-
-                if (tileIndex != 4 && (Mathf.Abs(pTrans.x - tTrans.x) < (tileWidth / 2)) &&
-                    (Mathf.Abs(pTrans.y - tTrans.y) < (tileWidth / 2)))
-                {
-                    List<GameObject> moveOne;
-
-                    switch (tileIndex)
-                    {
-                        case 0:
-                            moveOne = arrangeTiles(TilesArr, 6, false, 3, -1, 3, 0);
-                            TilesArr = new List<GameObject>(arrangeTiles(moveOne, 5, true, 2, -3, 0, 3));
-                            for (int i = 0; i < 9; i++)
-                            {
-                                TilesArr[i].transform.position = new Vector2(TilesArr[i].transform.position.x,
-                                    TilesArr[i].transform.position.y);
-                            }
-
-                            complete = true;
-                            break;
-                        case 1:
-                            TilesArr = new List<GameObject>(arrangeTiles(TilesArr, 6, false, 3, 0, 3, 0));
-                            for (int i = 0; i < 9; i++)
-                            {
-                                TilesArr[i].transform.position = new Vector2(TilesArr[i].transform.position.x,
-                                    TilesArr[i].transform.position.y);
-                            }
-
-                            complete = true;
-                            break;
-                        case 2:
-                            moveOne = arrangeTiles(TilesArr, 6, false, 3, 1, 3, 0);
-                            TilesArr = new List<GameObject>(arrangeTiles(moveOne, 3, true, 2, 3, 0, 5));
-                            for (int i = 0; i < 9; i++)
-                            {
-                                TilesArr[i].transform.position = new Vector2(TilesArr[i].transform.position.x,
-                                    TilesArr[i].transform.position.y);
-                            }
-
-                            complete = true;
-                            break;
-                        case 3:
-                            TilesArr = new List<GameObject>(arrangeTiles(TilesArr, 2, true, 3, -3, 0, 0));
-                            for (int i = 0; i < 9; i++)
-                            {
-                                TilesArr[i].transform.position = new Vector2(TilesArr[i].transform.position.x,
-                                    TilesArr[i].transform.position.y);
-                            }
-
-                            complete = true;
-                            break;
-                        //there is no case 4 because that is center tile.
-                        case 5:
-                            TilesArr = new List<GameObject>(arrangeTiles(TilesArr, 0, true, 3, 3, 0, 2));
-                            for (int i = 0; i < 9; i++)
-                            {
-                                TilesArr[i].transform.position = new Vector2(TilesArr[i].transform.position.x,
-                                    TilesArr[i].transform.position.y);
-                            }
-
-                            complete = true;
-                            break;
-                        //WHY IS THE BOTTOM ROW NOT WORKING??
-                        case 6:
-                            moveOne = arrangeTiles(TilesArr, 0, false, 3, -1, -3, 6);
-                            TilesArr = new List<GameObject>(arrangeTiles(moveOne, 2, true, 2, -3, 0, 0));
-                            for (int i = 0; i < 9; i++)
-                            {
-                                TilesArr[i].transform.position = new Vector2(TilesArr[i].transform.position.x,
-                                    TilesArr[i].transform.position.y);
-                            }
-
-                            complete = true;
-                            break;
-                        case 7:
-                            TilesArr = new List<GameObject>(arrangeTiles(TilesArr, 3, false, 3, 0, -3, 6));
-
-                            for (int i = 0; i < 9; i++)
-                            {
-                                Debug.Log(TilesArr[i].name);
-                                TilesArr[i].transform.position = new Vector2(TilesArr[i].transform.position.x,
-                                    TilesArr[i].transform.position.y);
-                            }
-
-                            complete = true;
-                            break;
-                        case 8:
-                            moveOne = arrangeTiles(TilesArr, 0, false, 3, 1, -3, 6);
-                            TilesArr = new List<GameObject>(arrangeTiles(moveOne, 0, true, 2, 3, 0, 2));
-                            for (int i = 0; i < 9; i++)
-                            {
-                                TilesArr[i].transform.position = new Vector2(TilesArr[i].transform.position.x,
-                                    TilesArr[i].transform.position.y);
-                            }
-
-                            complete = true;
-                            break;
-                        default:
-                            Debug.Log("were in the middle");
-                            break;
-                    }
-                }
-
-                tileIndex += 1;
-                if (complete)
-                {
-                    break;
-                }
-            }
-
-            //counter = 0;
-        }
-
-        //counter = 1;
     }
 }
