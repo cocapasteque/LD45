@@ -47,16 +47,16 @@ public class ResourceSpawner : MonoBehaviour
     {
         float rnd = Random.Range(0, 100);
         GameItem toSpawn = null;
-        for(int i = 0; i < _levels[CraftingSystem.Instance.CurrentLevel].ResourceSpawnPercentages.Count; i++)
+        foreach (var level in _levels[CraftingSystem.Instance.CurrentLevel].ResourceSpawnPercentages)
         {
-            if (rnd <= _levels[CraftingSystem.Instance.CurrentLevel].ResourceSpawnPercentages[i].Percentage)
+            if (rnd <= level.Percentage)
             {
-                toSpawn = Resources[_levels[CraftingSystem.Instance.CurrentLevel].ResourceSpawnPercentages[i].Index];
+                toSpawn = Resources[level.Index];
                 break;
             }
             else
             {
-                rnd -= _levels[CraftingSystem.Instance.CurrentLevel].ResourceSpawnPercentages[i].Percentage;
+                rnd -= level.Percentage;
             }
         }
         Vector3 spawnPos = GetSpawnPosition();
@@ -64,6 +64,7 @@ public class ResourceSpawner : MonoBehaviour
         GameObject go = Instantiate(toSpawn.prefab, _player.transform.position + spawnPos, quaternion);
         Vector3 trajectory = GetTrajectory(_player.transform.position + spawnPos);
         Vector3 rotationSpeed = GetRotationSpeed();
+        
         CollectableScrap scrap = go.AddComponent(typeof(CollectableScrap)) as CollectableScrap;
         scrap.Init(trajectory, rotationSpeed, toSpawn);
     }  

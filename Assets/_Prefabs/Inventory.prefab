@@ -24,12 +24,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2660298066916973069}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 580.5, y: 286, z: 5.8899994}
+  m_LocalScale: {x: 0.52962965, y: 0.52962965, z: 0.52962965}
   m_Children: []
-  m_Father: {fileID: 7952177859158672113}
-  m_RootOrder: 1
+  m_Father: {fileID: 1211628954681767700}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2660298066916973068
 MonoBehaviour:
@@ -114,6 +114,9 @@ MonoBehaviour:
   recipes:
   - {fileID: 11400000, guid: f1d93c88c4ee9e747bc731886fa2c746, type: 2}
   - {fileID: 11400000, guid: fcd3d8b6ae6742c469c0179da88551a3, type: 2}
+  Progress: {fileID: 11400000, guid: 033fc4fb4f0fc0a4886fe7ce17402844, type: 2}
+  CraftingScore: 0
+  CurrentLevel: 0
 --- !u!1 &4680356559097232135
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1211628954681767700}
+  - component: {fileID: 8994978066224495125}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -141,12 +145,81 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -5.8899994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2660298066916973071}
   - {fileID: 7952177859574649238}
   - {fileID: 7952177858255927313}
   - {fileID: 7952177858429537926}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8994978066224495125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4680356559097232135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ef09986a08d6e4397d0a86551b39d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: AvailableItems
+      Entry: 7
+      Data: 0|UnityEngine.Rendering.SerializedDictionary`2[[GameItem, Assembly-CSharp],[System.Int32,
+        mscorlib]], Unity.RenderPipelines.Core.Runtime
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[GameItem, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Items:
+  - {fileID: 11400000, guid: f6ef5fb900050384290c6220563dba21, type: 2}
+  - {fileID: 11400000, guid: 907a0a9adc0cf5f488c52a929595e935, type: 2}
+  - {fileID: 11400000, guid: f297b794391a7d8468f3665286727397, type: 2}
+  - {fileID: 11400000, guid: 3a30c0f19e6989647b95604dec70ce39, type: 2}
+  - {fileID: 11400000, guid: a79ade971b871b24db1f2fa3198352a6, type: 2}
+  - {fileID: 11400000, guid: 39f4182df9ae4c046aa903f83d7f3d65, type: 2}
+  - {fileID: 11400000, guid: 5fbe7ea87914b824f9d27264d450a604, type: 2}
+  - {fileID: 11400000, guid: 3e197820286c1dc4fa6cbff568d2aa29, type: 2}
+  - {fileID: 11400000, guid: dece8e04003379d4aad138d081c312a3, type: 2}
+  - {fileID: 11400000, guid: 4259104c183292544839fafdd2128c12, type: 2}
+  Bps:
+  - {fileID: 11400000, guid: 006b6a1d8669fb74da86a542a2e8aa83, type: 2}
+  - {fileID: 11400000, guid: f4618c20eb042dd4c8318fdc467861c2, type: 2}
+  Slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ResourcePanel: {fileID: 7952177857453833790}
+  ResourceButtonPrefab: {fileID: 2035435426434926314, guid: f1c0352aecf70914fa695e8e9e76a698,
+    type: 3}
+  InventoryPanel: {fileID: 7952177859112176681}
+  BlueprintPrefab: {fileID: 5665495999645262287, guid: e0c2db0dd92a6734086b6171d26d449b,
+    type: 3}
+  BlueprintPanel: {fileID: 7952177857858691864}
 --- !u!1 &7952177857453833791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,7 +1484,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 7952177859158672112}
+          - m_Target: {fileID: 0}
             m_MethodName: CreateObject
             m_Mode: 1
             m_Arguments:
@@ -4711,7 +4784,7 @@ RectTransform:
   m_Children:
   - {fileID: 7952177859158672113}
   m_Father: {fileID: 1211628954681767700}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4988,7 +5061,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1211628954681767700}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7952177858429537927
 MonoBehaviour:
@@ -5234,7 +5307,7 @@ MonoBehaviour:
   StartAlpha: 1
   AllowMultipleClicks: 1
   ButtonCategory: General
-  ButtonName: Unnamed
+  ButtonName: Back
   ClickMode: 0
   DeselectButtonAfterClick: 0
   DisableButtonBetweenClicksInterval: 0.2
@@ -9714,7 +9787,6 @@ GameObject:
   - component: {fileID: 7952177859158672117}
   - component: {fileID: 7952177859158672114}
   - component: {fileID: 7952177859158672115}
-  - component: {fileID: 7952177859158672112}
   m_Layer: 0
   m_Name: View - Inventory
   m_TagString: Untagged
@@ -9734,7 +9806,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7952177857829739911}
-  - {fileID: 2660298066916973071}
   m_Father: {fileID: 7952177858255927313}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10566,74 +10637,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7952177859158672110}
   m_CullTransparentMesh: 0
---- !u!114 &7952177859158672112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7952177859158672110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88ef09986a08d6e4397d0a86551b39d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: AvailableItems
-      Entry: 7
-      Data: 0|UnityEngine.Rendering.SerializedDictionary`2[[GameItem, Assembly-CSharp],[System.Int32,
-        mscorlib]], Unity.RenderPipelines.Core.Runtime
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[GameItem, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  Items:
-  - {fileID: 11400000, guid: f6ef5fb900050384290c6220563dba21, type: 2}
-  - {fileID: 11400000, guid: 907a0a9adc0cf5f488c52a929595e935, type: 2}
-  - {fileID: 11400000, guid: f297b794391a7d8468f3665286727397, type: 2}
-  - {fileID: 11400000, guid: 3a30c0f19e6989647b95604dec70ce39, type: 2}
-  - {fileID: 11400000, guid: a79ade971b871b24db1f2fa3198352a6, type: 2}
-  - {fileID: 11400000, guid: 39f4182df9ae4c046aa903f83d7f3d65, type: 2}
-  - {fileID: 11400000, guid: 5fbe7ea87914b824f9d27264d450a604, type: 2}
-  - {fileID: 11400000, guid: 3e197820286c1dc4fa6cbff568d2aa29, type: 2}
-  - {fileID: 11400000, guid: dece8e04003379d4aad138d081c312a3, type: 2}
-  - {fileID: 11400000, guid: 4259104c183292544839fafdd2128c12, type: 2}
-  Bps:
-  - {fileID: 11400000, guid: 006b6a1d8669fb74da86a542a2e8aa83, type: 2}
-  - {fileID: 11400000, guid: f4618c20eb042dd4c8318fdc467861c2, type: 2}
-  Slots:
-  - {fileID: 7952177858533204563}
-  - {fileID: 7952177858496464205}
-  - {fileID: 7952177858169260466}
-  - {fileID: 7952177857472380990}
-  - {fileID: 7952177859200655208}
-  ResourcePanel: {fileID: 7952177857539419947}
-  ResourceButtonPrefab: {fileID: 2035435426434926314, guid: f1c0352aecf70914fa695e8e9e76a698,
-    type: 3}
-  InventoryPanel: {fileID: 7952177859112176681}
-  BlueprintPrefab: {fileID: 5665495999645262287, guid: e0c2db0dd92a6734086b6171d26d449b,
-    type: 3}
-  BlueprintPanel: {fileID: 7952177858056610874}
 --- !u!1 &7952177859200655204
 GameObject:
   m_ObjectHideFlags: 0
@@ -11796,7 +11799,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 7952177859158672112}
+          - m_Target: {fileID: 0}
             m_MethodName: ClearAllSlots
             m_Mode: 6
             m_Arguments:
@@ -14361,7 +14364,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1211628954681767700}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7952177859574649239
 MonoBehaviour:

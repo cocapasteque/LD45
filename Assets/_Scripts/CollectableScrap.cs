@@ -24,10 +24,9 @@ public class CollectableScrap : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
-        {
-            InventoryManager.Instance.AddItem(_item);
-            Destroy(gameObject);
-        }
+        if (!other.gameObject.CompareTag("Player")) return;
+        
+        InventoryManager.Instance.AddItem(_item);
+        Destroy(gameObject);
     }
 }

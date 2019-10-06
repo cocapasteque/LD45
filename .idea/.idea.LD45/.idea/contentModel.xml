@@ -8,6 +8,7 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="_Scripts" t="Include">
+          <e p="CollectableScrap.cs" t="Include" />
           <e p="Crafting" t="Include">
             <e p="Blueprint.cs" t="Include" />
             <e p="CraftingSystem.cs" t="Include" />
@@ -15,6 +16,7 @@
             <e p="GameItem.cs" t="Include" />
             <e p="Recipe.cs" t="Include" />
           </e>
+          <e p="CraftingProgress.cs" t="Include" />
           <e p="Inventory" t="Include">
             <e p="CraftingSlot.cs" t="Include" />
             <e p="DragResource.cs" t="Include" />
@@ -24,6 +26,7 @@
           </e>
           <e p="LordGameManager.cs" t="Include" />
           <e p="PlayerScript.cs" t="Include" />
+          <e p="ResourceSpawner.cs" t="Include" />
           <e p="Settings.cs" t="Include" />
           <e p="Thrusters" t="Include">
             <e p="Thruster.cs" t="Include" />

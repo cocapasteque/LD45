@@ -19,8 +19,16 @@ public class CraftingSystem : SerializedMonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else if (Instance != this) Destroy(this);
+        if (Instance == null)
+        {
+            Debug.Log("Creating instance");
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Debug.Log("instance already exists.");
+            Destroy(this);
+        }
 
         CraftingScore = 0;
         CurrentLevel = 0;
