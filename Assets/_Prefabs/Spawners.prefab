@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1358932576309753998}
   - component: {fileID: 1358932576309753993}
+  - component: {fileID: 888862140}
+  - component: {fileID: 888862141}
   m_Layer: 0
-  m_Name: ResourceSpawner
+  m_Name: Spawners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,4 +57,46 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dece8e04003379d4aad138d081c312a3, type: 2}
   - {fileID: 11400000, guid: 4259104c183292544839fafdd2128c12, type: 2}
   RotationSpeed: {x: 10, y: 30}
-  MovementSpeed: {x: 0.2, y: 0.3}
+  MovementTimeToPlayer: {x: 7, y: 12}
+--- !u!114 &888862140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358932576309753992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73d5df48d9f06642b17b547e267b61f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemies:
+  - {fileID: 11400000, guid: 220af465f5a10f5489141f150fc71fbc, type: 2}
+--- !u!114 &888862141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358932576309753992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714775a2ae4fed34b9bc4821da0248be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Blueprints:
+  - {fileID: 11400000, guid: 6f7a4034be5a9af4d9099b3912c9abaf, type: 2}
+  - {fileID: 11400000, guid: f4618c20eb042dd4c8318fdc467861c2, type: 2}
+  - {fileID: 11400000, guid: 69a527a53c3c6574dab3e59602314f91, type: 2}
+  - {fileID: 11400000, guid: 3606fcf45864b1b438bfd8e156f26535, type: 2}
+  - {fileID: 11400000, guid: 5b7935b099de5304fb73af4bad2439ef, type: 2}
+  - {fileID: 11400000, guid: 9b7ef665238d28246ac61a77f7fb2f7e, type: 2}
+  - {fileID: 11400000, guid: e7cbe238f25eaf442aca3db726b166b5, type: 2}
+  - {fileID: 11400000, guid: 006b6a1d8669fb74da86a542a2e8aa83, type: 2}
+  - {fileID: 11400000, guid: a986072ab9b9e8748b0470da1181db77, type: 2}
+  - {fileID: 11400000, guid: 806ec24a697ceff40b08652fa87e1e7f, type: 2}
+  - {fileID: 11400000, guid: 53b3c0b16e57e64468e399e74d44668f, type: 2}
+  RotationSpeed: {x: 10, y: 30}
+  MovementTimeToPlayer: {x: 3, y: 12}
+  BlueprintPrefab: {fileID: 5484757789788209588, guid: 0421a56dcab63894bbf8d00ee1948c5d,
+    type: 3}

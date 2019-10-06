@@ -22,5 +22,5 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   itemName: Laser MK2
-  recipe: {fileID: 11400000, guid: 74618f8225a78754196d012ad8e38cdc, type: 2}
+  recipe: {fileID: 11400000, guid: 64b731f0338ed9c469aa2dc37e3c7656, type: 2}
   level: 4

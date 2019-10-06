@@ -15,7 +15,9 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: dece8e04003379d4aad138d081c312a3, type: 2}
+    - {fileID: 11400000, guid: 39f4182df9ae4c046aa903f83d7f3d65, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -34,7 +36,31 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
       Data: 0
+    - Name: $v
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 1
+    - Name: $v
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -42,4 +68,4 @@ MonoBehaviour:
       Entry: 8
       Data: 
   itemName: Repair Kit MK2
-  result: {fileID: 11400000, guid: d0dd734631fa21b44b9d635deb3a8bc8, type: 2}
+  result: {fileID: 11400000, guid: 37f5cc87e9318fc45b799dba5f9663e7, type: 2}

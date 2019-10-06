@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Doozy.Engine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SphereCollider))]
@@ -36,6 +37,7 @@ public class PlayerScript : MonoBehaviour
 
     private float m_default_camera_distance;
     
+    
     private Rigidbody m_rb;
     public Rigidbody RigidBody => m_rb;
     public GameObject Player_Mesh => m_player_mesh;
@@ -51,8 +53,13 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Volume _postProcSpeed;
     [SerializeField] private AnimationCurve _fovCurve;
     [SerializeField] private float _maxSpeed;
+
+    [SerializeField] private Transform _earth;
+    [SerializeField] private AnimationCurve _planetScale;
+
+    private bool _running = false;
     #endregion
-    
+
     #region UNITY LIFECYCLE
     private void Awake()
     {
@@ -78,6 +85,7 @@ public class PlayerScript : MonoBehaviour
 
         m_shooting_coroutine = StartCoroutine(Shoot());
         m_default_camera_distance = (m_camera.transform.position - m_player_mesh.transform.position).magnitude;
+        _running = true;
     }
     private void Update()
     {
@@ -85,6 +93,7 @@ public class PlayerScript : MonoBehaviour
         HandleShooting();
         HandleThrusting();
         HandleCamera();
+        HandleEarth();
     }
     #endregion
 
@@ -138,10 +147,24 @@ public class PlayerScript : MonoBehaviour
     private void HandleCamera()
     {
         // the faster the player is, the further away the camera is from him
-        m_camera.transform.position = m_player_mesh.transform.position + Vector3.up*(m_default_camera_distance + m_rb.velocity.magnitude);
+        //m_camera.transform.position = m_player_mesh.transform.position + Vector3.up*(m_default_camera_distance + m_rb.velocity.magnitude);
         var remaped = m_rb.velocity.magnitude.Remap(0, _maxSpeed, 0, 1);
         _postProcSpeed.weight = remaped;
         m_camera.fieldOfView = _fovCurve.Evaluate(remaped);
+    }
+
+    private void HandleEarth()
+    {
+        Vector2 planetPos = new Vector2(_earth.position.x, _earth.position.z);
+        Vector2 playerPos = new Vector2(transform.position.x, transform.position.z);
+        float dist = Vector2.Distance(playerPos, planetPos);
+        _earth.localScale = Vector3.one * _planetScale.Evaluate(Mathf.Clamp(dist, 0f, 400f));
+        if (dist <= 100 && _running)
+        {
+            UIPopup popup = UIPopupManager.ShowPopup("Win", false, false);
+            LordGameManager.Instance.FadeStartPlane(false);
+            _running = false;
+        }
     }
 
 
@@ -154,6 +177,12 @@ public class PlayerScript : MonoBehaviour
     public void TakeDamages(float val)
     {
         Health -= val;
+        if (Health <= 0 && _running)
+        {
+            LordGameManager.Instance.FadeStartPlane(false);
+            UIPopup popup = UIPopupManager.ShowPopup("Lose", false, false);
+            _running = false;
+        }
     }
     public void Heal(float val)
     {

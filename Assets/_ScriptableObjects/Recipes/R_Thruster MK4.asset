@@ -16,8 +16,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 5fbe7ea87914b824f9d27264d450a604, type: 2}
-    - {fileID: 11400000, guid: 907a0a9adc0cf5f488c52a929595e935, type: 2}
+    - {fileID: 11400000, guid: a79ade971b871b24db1f2fa3198352a6, type: 2}
+    - {fileID: 11400000, guid: f6ef5fb900050384290c6220563dba21, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -68,4 +68,4 @@ MonoBehaviour:
       Entry: 8
       Data: 
   itemName: Thruster MK4
-  result: {fileID: 11400000, guid: fb18d98bc456874488b45469fe55c28b, type: 2}
+  result: {fileID: 11400000, guid: d4ef8fa6a0049bb48b60108d74490263, type: 2}

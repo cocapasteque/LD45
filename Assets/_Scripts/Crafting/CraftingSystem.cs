@@ -9,6 +9,7 @@ public class CraftingSystem : SerializedMonoBehaviour
     public static CraftingSystem Instance = null;
 
     public List<Recipe> recipes;
+    public List<Blueprint> blueprints;
     public Dictionary<Blueprint, bool> unlockedBlueprints;
     public CraftingProgress Progress;
 
@@ -32,6 +33,11 @@ public class CraftingSystem : SerializedMonoBehaviour
 
         CraftingScore = 0;
         CurrentLevel = 0;
+        unlockedBlueprints = new Dictionary<Blueprint, bool>();
+        foreach (Blueprint bp in blueprints)
+        {
+            unlockedBlueprints.Add(bp, false);
+        }
     }
 
     public Recipe GetRecipeForItem(GameItem item)

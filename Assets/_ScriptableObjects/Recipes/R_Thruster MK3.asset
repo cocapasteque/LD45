@@ -16,8 +16,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 5fbe7ea87914b824f9d27264d450a604, type: 2}
-    - {fileID: 11400000, guid: 907a0a9adc0cf5f488c52a929595e935, type: 2}
+    - {fileID: 11400000, guid: f297b794391a7d8468f3665286727397, type: 2}
+    - {fileID: 11400000, guid: 3a30c0f19e6989647b95604dec70ce39, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -45,7 +45,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -57,7 +57,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -68,4 +68,4 @@ MonoBehaviour:
       Entry: 8
       Data: 
   itemName: Thruster MK3
-  result: {fileID: 11400000, guid: fb18d98bc456874488b45469fe55c28b, type: 2}
+  result: {fileID: 11400000, guid: e4c33d14ad8095e4f9c9130096400c6e, type: 2}

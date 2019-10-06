@@ -80,5 +80,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  itemName: Laser MK1
-  result: {fileID: 11400000, guid: d0dd734631fa21b44b9d635deb3a8bc8, type: 2}
+  itemName: Laser MK2
+  result: {fileID: 11400000, guid: 6e9ec52be549aff4d81f9aa85440613f, type: 2}

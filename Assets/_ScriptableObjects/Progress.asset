@@ -18,40 +18,23 @@ MonoBehaviour:
       Percentage: 70
     - Index: 1
       Percentage: 30
-    ResourceSpawnCooldown: 30
-    EnemySpawnPercentages:
-    - Index: 0
-      Percentage: 100
-    EnemySpawnCooldown: 5
-    BlueprintSpawnPercentages: []
-    BlueprintSpawnCooldown: 0
-    PointsNeededToLevel: 4
-  - ResourceSpawnPercentages:
-    - Index: 0
-      Percentage: 40
-    - Index: 1
-      Percentage: 40
-    - Index: 2
-      Percentage: 20
     ResourceSpawnCooldown: 2.78
     EnemySpawnPercentages: []
     EnemySpawnCooldown: 5
-    BlueprintSpawnPercentages: []
-    BlueprintSpawnCooldown: 0
+    BlueprintSpawnPercentages:
+    - Index: 1
+      Percentage: 100
+    BlueprintSpawnCooldown: 20
     PointsNeededToLevel: 11
   - ResourceSpawnPercentages:
     - Index: 0
-      Percentage: 20
+      Percentage: 30
     - Index: 1
       Percentage: 40
     - Index: 2
       Percentage: 30
-    - Index: 3
-      Percentage: 10
     ResourceSpawnCooldown: 2.56
-    EnemySpawnPercentages:
-    - Index: 0
-      Percentage: 100
+    EnemySpawnPercentages: []
     EnemySpawnCooldown: 10
     BlueprintSpawnPercentages: []
     BlueprintSpawnCooldown: 0
@@ -68,8 +51,12 @@ MonoBehaviour:
     ResourceSpawnCooldown: 2.33
     EnemySpawnPercentages: []
     EnemySpawnCooldown: 0
-    BlueprintSpawnPercentages: []
-    BlueprintSpawnCooldown: 0
+    BlueprintSpawnPercentages:
+    - Index: 2
+      Percentage: 65
+    - Index: 3
+      Percentage: 15
+    BlueprintSpawnCooldown: 15
     PointsNeededToLevel: 33
   - ResourceSpawnPercentages:
     - Index: 2
@@ -81,10 +68,16 @@ MonoBehaviour:
     - Index: 5
       Percentage: 10
     ResourceSpawnCooldown: 2.11
-    EnemySpawnPercentages: []
-    EnemySpawnCooldown: 0
-    BlueprintSpawnPercentages: []
-    BlueprintSpawnCooldown: 0
+    EnemySpawnPercentages:
+    - Index: 0
+      Percentage: 50
+    EnemySpawnCooldown: 10
+    BlueprintSpawnPercentages:
+    - Index: 3
+      Percentage: 65
+    - Index: 4
+      Percentage: 25
+    BlueprintSpawnCooldown: 15
     PointsNeededToLevel: 47
   - ResourceSpawnPercentages:
     - Index: 3
@@ -98,8 +91,12 @@ MonoBehaviour:
     ResourceSpawnCooldown: 1.89
     EnemySpawnPercentages: []
     EnemySpawnCooldown: 0
-    BlueprintSpawnPercentages: []
-    BlueprintSpawnCooldown: 0
+    BlueprintSpawnPercentages:
+    - Index: 4
+      Percentage: 65
+    - Index: 5
+      Percentage: 25
+    BlueprintSpawnCooldown: 15
     PointsNeededToLevel: 65
   - ResourceSpawnPercentages:
     - Index: 4
@@ -113,8 +110,12 @@ MonoBehaviour:
     ResourceSpawnCooldown: 1.67
     EnemySpawnPercentages: []
     EnemySpawnCooldown: 0
-    BlueprintSpawnPercentages: []
-    BlueprintSpawnCooldown: 0
+    BlueprintSpawnPercentages:
+    - Index: 5
+      Percentage: 65
+    - Index: 6
+      Percentage: 25
+    BlueprintSpawnCooldown: 15
     PointsNeededToLevel: 87
   - ResourceSpawnPercentages:
     - Index: 5
@@ -128,8 +129,14 @@ MonoBehaviour:
     ResourceSpawnCooldown: 1.44
     EnemySpawnPercentages: []
     EnemySpawnCooldown: 0
-    BlueprintSpawnPercentages: []
-    BlueprintSpawnCooldown: 0
+    BlueprintSpawnPercentages:
+    - Index: 6
+      Percentage: 55
+    - Index: 7
+      Percentage: 20
+    - Index: 8
+      Percentage: 10
+    BlueprintSpawnCooldown: 15
     PointsNeededToLevel: 119
   - ResourceSpawnPercentages:
     - Index: 6
@@ -141,13 +148,25 @@ MonoBehaviour:
     ResourceSpawnCooldown: 1.22
     EnemySpawnPercentages: []
     EnemySpawnCooldown: 0
-    BlueprintSpawnPercentages: []
-    BlueprintSpawnCooldown: 0
+    BlueprintSpawnPercentages:
+    - Index: 7
+      Percentage: 50
+    - Index: 8
+      Percentage: 35
+    - Index: 9
+      Percentage: 10
+    BlueprintSpawnCooldown: 15
     PointsNeededToLevel: 0
   - ResourceSpawnPercentages: []
     ResourceSpawnCooldown: Infinity
     EnemySpawnPercentages: []
     EnemySpawnCooldown: Infinity
-    BlueprintSpawnPercentages: []
-    BlueprintSpawnCooldown: 0
+    BlueprintSpawnPercentages:
+    - Index: 8
+      Percentage: 25
+    - Index: 9
+      Percentage: 25
+    - Index: 10
+      Percentage: 50
+    BlueprintSpawnCooldown: 15
     PointsNeededToLevel: Infinity

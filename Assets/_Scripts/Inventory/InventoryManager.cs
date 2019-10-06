@@ -4,6 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Linq;
 using JetBrains.Annotations;
+using Doozy.Engine.UI;
 
 public class InventoryManager : SerializedMonoBehaviour
 {
@@ -24,6 +25,7 @@ public class InventoryManager : SerializedMonoBehaviour
 
     private Dictionary<GameItem, DragResource> ResourceButtons;
     private PlayerScript _player;
+    private bool _earthFinder;
     
     void Awake()
     {
@@ -40,6 +42,7 @@ public class InventoryManager : SerializedMonoBehaviour
         Equipment = new List<GameItem>();
 
         _player = FindObjectOfType<PlayerScript>();
+        _earthFinder = false;
     }
 
     private void Update()
@@ -141,8 +144,7 @@ public class InventoryManager : SerializedMonoBehaviour
 
         if (created != null && created.type == ItemType.Ingredient)
         {
-            if (AvailableItems.ContainsKey(created)) AvailableItems[created]++;
-            else AvailableItems.Add(created, 1);
+            AddItem(created);
         }
 
         if (created != null && created.type == ItemType.Repair)
@@ -152,7 +154,11 @@ public class InventoryManager : SerializedMonoBehaviour
 
         if (created != null && created.type == ItemType.Finder)
         {
-            //TODO: FIND EARTH
+            if (!_earthFinder)
+            {
+                UIPopup popup = UIPopupManager.ShowPopup("EarthFinder", false, false);              
+                _earthFinder = true;
+            }
         }
         
         ClearAllSlots(false);

@@ -47,7 +47,7 @@ public class LordGameManager : MonoBehaviour
         }
     }
 
-    public void FadeStartPlane()
+    public void FadeStartPlane(bool show = true)
     {
         StartCoroutine(Work());
         
@@ -58,7 +58,10 @@ public class LordGameManager : MonoBehaviour
             while (t < 1f)
             {
                 _fadePlane.GetPropertyBlock(block);
-                block.SetColor("_BaseColor", Color.Lerp(Color.black, Color.clear, t));
+                if (show)
+                    block.SetColor("_BaseColor", Color.Lerp(Color.black, Color.clear, t));
+                else
+                    block.SetColor("_BaseColor", Color.Lerp(Color.clear, Color.black, t));
                 _fadePlane.SetPropertyBlock(block);
                 t += Time.deltaTime / _fadeTime;
                 yield return null;

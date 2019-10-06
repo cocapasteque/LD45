@@ -39,7 +39,7 @@ public class BlueprintSpawner : MonoBehaviour
     {
         while (_spawning)
         {
-            yield return new WaitForSeconds(_levels[CraftingSystem.Instance.CurrentLevel].ResourceSpawnCooldown);
+            yield return new WaitForSeconds(_levels[CraftingSystem.Instance.CurrentLevel].BlueprintSpawnCooldown);
             SpawnObject();
         }
     }
@@ -52,7 +52,7 @@ public class BlueprintSpawner : MonoBehaviour
         {
             if (rnd <= level.Percentage)
             {
-                if (CraftingSystem.Instance.unlockedBlueprints[Blueprints[level.Index]])
+                if (!CraftingSystem.Instance.unlockedBlueprints[Blueprints[level.Index]])
                 {
                     toSpawn = Blueprints[level.Index];
                 }

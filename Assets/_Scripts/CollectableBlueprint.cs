@@ -21,7 +21,6 @@ public class CollectableBlueprint : MonoBehaviour
     private void Update()
     {
         transform.Translate(_velocity * Time.deltaTime, Space.World);
-        Debug.Log(_velocity);
         transform.Rotate(_rotationSpeed * Time.deltaTime);
 
         if (Time.time - _creationTime > 30f)
