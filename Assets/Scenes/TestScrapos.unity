@@ -201,6 +201,12 @@ MeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 152089407}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &308170398 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7952177857539419947, guid: 4d4165a4d7a9c2544ad0795a5dc99496,
+    type: 3}
+  m_PrefabInstance: {fileID: 1138115699}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &473501953
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +550,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.0000020033492
+      objectReference: {fileID: 0}
+    - target: {fileID: 8994978066224495125, guid: 4d4165a4d7a9c2544ad0795a5dc99496,
+        type: 3}
+      propertyPath: ResourcePanel
+      value: 
+      objectReference: {fileID: 308170398}
+    - target: {fileID: 8994978066224495125, guid: 4d4165a4d7a9c2544ad0795a5dc99496,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d4165a4d7a9c2544ad0795a5dc99496, type: 3}

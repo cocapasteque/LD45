@@ -114,6 +114,8 @@ MonoBehaviour:
   recipes:
   - {fileID: 11400000, guid: f1d93c88c4ee9e747bc731886fa2c746, type: 2}
   - {fileID: 11400000, guid: fcd3d8b6ae6742c469c0179da88551a3, type: 2}
+  - {fileID: 11400000, guid: eb5ccfdd5dbefef499eebf243c23fdac, type: 2}
+  - {fileID: 11400000, guid: 74618f8225a78754196d012ad8e38cdc, type: 2}
   Progress: {fileID: 11400000, guid: 033fc4fb4f0fc0a4886fe7ce17402844, type: 2}
   CraftingScore: 0
   CurrentLevel: 0
@@ -208,18 +210,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 006b6a1d8669fb74da86a542a2e8aa83, type: 2}
   - {fileID: 11400000, guid: f4618c20eb042dd4c8318fdc467861c2, type: 2}
   Slots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  ResourcePanel: {fileID: 7952177857453833790}
+  - {fileID: 7952177858533204563}
+  - {fileID: 7952177858496464205}
+  - {fileID: 7952177858169260466}
+  - {fileID: 7952177857472380990}
+  - {fileID: 7952177859200655208}
+  ResourcePanel: {fileID: 7952177857539419947}
   ResourceButtonPrefab: {fileID: 2035435426434926314, guid: f1c0352aecf70914fa695e8e9e76a698,
     type: 3}
   InventoryPanel: {fileID: 7952177859112176681}
   BlueprintPrefab: {fileID: 5665495999645262287, guid: e0c2db0dd92a6734086b6171d26d449b,
     type: 3}
-  BlueprintPanel: {fileID: 7952177857858691864}
+  BlueprintPanel: {fileID: 7952177858056610874}
 --- !u!1 &7952177857453833791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,7 +1486,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 0}
+          - m_Target: {fileID: 8994978066224495125}
             m_MethodName: CreateObject
             m_Mode: 1
             m_Arguments:
@@ -11799,7 +11801,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 0}
+          - m_Target: {fileID: 8994978066224495125}
             m_MethodName: ClearAllSlots
             m_Mode: 6
             m_Arguments:
