@@ -13,10 +13,12 @@ public abstract class WeaponBase : MonoBehaviour
     [SerializeField]
     protected float m_cooldown;
     public float Cooldown => m_cooldown;
-
+    
     private bool m_on_cooldown;
     public bool On_Cooldown => m_on_cooldown;
 
+    [SerializeField] protected Transform m_origin;
+    
     /// <summary>
     /// every weapon needs to have something happen when you shoot. when overrideing, always call this base function since it will track cooldown
     /// </summary>

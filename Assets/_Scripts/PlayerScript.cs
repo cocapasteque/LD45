@@ -6,6 +6,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -13,8 +14,8 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     #region VARIABLES
-    private List<Thruster> m_thrusters;
-    private List<WeaponBase> m_weapons;
+    public List<Thruster> m_thrusters;
+    public List<WeaponBase> m_weapons;
 
     // plane though the origin with world up vector, which represens the plane the game takes place on in top-down fashion
     private Plane m_game_plane;
@@ -41,7 +42,7 @@ public class PlayerScript : MonoBehaviour
     #endregion
     
     #region UNITY LIFECYCLE
-    void Awake()
+    private void Awake()
     {
         m_rb = this.gameObject.GetComponent<Rigidbody>();
         m_rb.useGravity = false; // make sure to have gravity off, we are in space
@@ -54,63 +55,33 @@ public class PlayerScript : MonoBehaviour
         // make the default game plane through origin with world up
         m_game_plane = new Plane(Vector3.up, Vector3.zero);
 
-        m_weapons = new List<WeaponBase>();
-        m_thrusters = new List<Thruster>();
+        if(m_weapons == null) m_weapons = new List<WeaponBase>();
+        if(m_thrusters == null) m_thrusters = new List<Thruster>();
     }
-
     private void Start()
     {
         // give the player an initial push toward the thruster
         m_rb.AddForce(this.transform.forward * 20.0f);
 
         m_shooting_coroutine = StartCoroutine(Shoot());
-
         m_default_camera_distance = (m_camera.transform.position - m_player_mesh.transform.position).magnitude;
     }
-    
-    void Update()
+    private void Update()
     {
-        // rotation logic
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float distance = 0.0f;
-        if (m_game_plane.Raycast(ray, out distance))
-        {
-            Vector3 hit = ray.GetPoint(distance);
-            m_player_mesh.transform.LookAt(hit);
-        }
-
-        // left = shooting
-        if (Input.GetMouseButtonDown(0))
-        {
-            m_shooting = true;
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            m_shooting = false;
-        }
-
-        // right = thrusting
-        if (Input.GetMouseButton(1))
-        {
-            foreach (Thruster thruster in m_thrusters)
-            {
-                m_rb.AddForce(m_player_mesh.transform.forward * thruster.Thrust_Strength * Time.deltaTime);
-            }
-        }
-
-        // the faster the player is, the further away the camera is from him
-        m_camera.transform.position = m_player_mesh.transform.position + Vector3.up*(m_default_camera_distance + m_rb.velocity.magnitude);
+        HandleRotation();
+        HandleShooting();
+        HandleThrusting();
+        HandleCamera();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Thruster")
-        {
-            // we need to set our thruster to the one we now collided with, and get rid of it visually be reparenting it and scaling to 0
-            m_thrusters.Add(collision.gameObject.GetComponent<Thruster>());
-            collision.transform.SetParent(this.transform);
-            collision.transform.localScale = Vector3.zero;
-        }
+        if (!collision.gameObject.CompareTag("Thruster")) return;
+        
+        // we need to set our thruster to the one we now collided with, and get rid of it visually be reparenting it and scaling to 0
+        m_thrusters.Add(collision.gameObject.GetComponent<Thruster>());
+        collision.transform.SetParent(this.transform);
+        collision.transform.localScale = Vector3.zero;
     }
 
     #endregion
@@ -123,17 +94,45 @@ public class PlayerScript : MonoBehaviour
         {
             if (m_shooting)
             {
-                foreach (WeaponBase weapon in m_weapons)
+                foreach (var weapon in m_weapons.Where(weapon => !weapon.On_Cooldown))
                 {
-                    if (!weapon.On_Cooldown)
-                    {
-                        weapon.Shoot();
-                    }
+                    weapon.Shoot();
                 }
             }
 
             yield return new WaitForEndOfFrame();
         }
+    }
+    private void HandleRotation()
+    { 
+        var pos = Utils.GetMousePositionOn2DPlane();
+        if(pos.HasValue)
+            m_player_mesh.transform.LookAt(pos.Value);
+    }
+    private void HandleShooting()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            m_shooting = true;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            m_shooting = false;
+        }
+    }
+    private void HandleThrusting()
+    {
+        if (!Input.GetMouseButton(1)) return;
+        
+        foreach (var thruster in m_thrusters)
+        {
+            m_rb.AddForce(Time.deltaTime * thruster.Thrust_Strength * m_player_mesh.transform.forward);
+        }
+    }
+    private void HandleCamera()
+    {
+        // the faster the player is, the further away the camera is from him
+        m_camera.transform.position = m_player_mesh.transform.position + Vector3.up*(m_default_camera_distance + m_rb.velocity.magnitude);
     }
     #endregion
 }
