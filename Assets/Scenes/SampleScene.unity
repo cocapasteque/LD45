@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14545462, g: 0.0941231, b: 0.21724021, a: 1}
+  m_IndirectSpecularColor: {r: 0.33600625, g: 0.22979143, b: 0.4962666, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -307,6 +307,12 @@ MeshRenderer:
 --- !u!4 &499840793 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1522141831329575183, guid: 55cc6f649b26b0e49b68b18911435baa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1940828326}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &527622830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1521192178114354794, guid: 55cc6f649b26b0e49b68b18911435baa,
     type: 3}
   m_PrefabInstance: {fileID: 1940828326}
   m_PrefabAsset: {fileID: 0}
@@ -764,6 +770,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456650672}
   m_CullTransparentMesh: 0
+--- !u!1 &1572801148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1522141831329575178, guid: 55cc6f649b26b0e49b68b18911435baa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1940828326}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1572801152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572801148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a9ec1b51807424a8f6a39cc85d0854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 0}
+  containter: {fileID: 0}
+  player: {fileID: 527622830}
+  SlowDownFactor: 300
+  tileWidth: 5
 --- !u!1 &1617146334
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,7 +954,7 @@ PrefabInstance:
     - target: {fileID: 1522141830061750425, guid: 55cc6f649b26b0e49b68b18911435baa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.89
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1522141830061750425, guid: 55cc6f649b26b0e49b68b18911435baa,
         type: 3}
@@ -974,6 +1003,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1522141830061750436, guid: 55cc6f649b26b0e49b68b18911435baa,
         type: 3}
+      propertyPath: _fovCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522141830061750436, guid: 55cc6f649b26b0e49b68b18911435baa,
+        type: 3}
       propertyPath: _postProcSpeed
       value: 
       objectReference: {fileID: 1617146335}
@@ -981,6 +1015,41 @@ PrefabInstance:
         type: 3}
       propertyPath: _maxSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522141830061750436, guid: 55cc6f649b26b0e49b68b18911435baa,
+        type: 3}
+      propertyPath: _fovCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522141830061750436, guid: 55cc6f649b26b0e49b68b18911435baa,
+        type: 3}
+      propertyPath: _fovCurve.m_Curve.Array.data[1].value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522141830061750436, guid: 55cc6f649b26b0e49b68b18911435baa,
+        type: 3}
+      propertyPath: _fovCurve.m_Curve.Array.data[1].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522141830061750436, guid: 55cc6f649b26b0e49b68b18911435baa,
+        type: 3}
+      propertyPath: _fovCurve.m_Curve.Array.data[1].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522141830061750436, guid: 55cc6f649b26b0e49b68b18911435baa,
+        type: 3}
+      propertyPath: _trailOrigin
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522141830061750436, guid: 55cc6f649b26b0e49b68b18911435baa,
+        type: 3}
+      propertyPath: _trail
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522141830061750436, guid: 55cc6f649b26b0e49b68b18911435baa,
+        type: 3}
+      propertyPath: _fovCurve.m_Curve.Array.data[0].value
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1522141831329575176, guid: 55cc6f649b26b0e49b68b18911435baa,
         type: 3}
