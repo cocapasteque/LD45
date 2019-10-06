@@ -39,11 +39,19 @@ public class PlayerScript : MonoBehaviour
     public Rigidbody RigidBody => m_rb;
     public GameObject Player_Mesh => m_player_mesh;
 
+    private float _health;
+    public float Health
+    {
+        get => _health;
+        set => _health = Mathf.Clamp(value, 0, 100);
+    }
+
     #endregion
     
     #region UNITY LIFECYCLE
     private void Awake()
     {
+        Health = 100;
         m_rb = this.gameObject.GetComponent<Rigidbody>();
         m_rb.useGravity = false; // make sure to have gravity off, we are in space
 
@@ -74,6 +82,7 @@ public class PlayerScript : MonoBehaviour
         HandleCamera();
     }
 
+    // TODO Move this code to pickup object logic
     private void OnCollisionEnter(Collision collision)
     {
         if (!collision.gameObject.CompareTag("Thruster")) return;
@@ -133,6 +142,16 @@ public class PlayerScript : MonoBehaviour
     {
         // the faster the player is, the further away the camera is from him
         m_camera.transform.position = m_player_mesh.transform.position + Vector3.up*(m_default_camera_distance + m_rb.velocity.magnitude);
+    }
+
+    public void TakeDamages(float val)
+    {
+        Health -= val;
+    }
+
+    public void Heal(float val)
+    {
+        Health += val;
     }
     #endregion
 }
