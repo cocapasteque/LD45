@@ -48,17 +48,17 @@ MonoBehaviour:
   - IsRootTab: 1
     Graph: {fileID: 11400000, guid: c2117f733379d164981faa33544289c5, type: 2}
     SubGraphNode: {fileID: 0}
-    Zoom: 0.6
-    PanOffset: {x: 959.99994, y: 454.30002}
+    Zoom: 0.5
+    PanOffset: {x: 426.80527, y: 206.50496}
     SelectedNodes: []
     DeletedNodes: []
   CurrentView: 1
-  CurrentPanOffset: {x: 426.80527, y: 206.50496}
+  CurrentPanOffset: {x: 891.2155, y: 342.47412}
   DefaultPanOffset: {x: 0, y: 0}
   IsDirty: 0
   SaveCurrentGraphWithControlS: 1
   CurrentDotAnimationSpeed: 0.6
-  CurrentZoom: 0.5
+  CurrentZoom: 1
   DefaultDotAnimationSpeed: 0.6
   DefaultZoom: 1
   ShowNodeNotes: 1
