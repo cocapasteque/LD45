@@ -28,6 +28,9 @@
             <e p="Thruster.cs" t="Include" />
           </e>
           <e p="WeaponBase.cs" t="Include" />
+          <e p="Weapons" t="Include">
+            <e p="LaserWeapon.cs" t="Include" />
+          </e>
         </e>
         <e p="Demigiant" t="Include">
           <e p="DOTween" t="Include">
