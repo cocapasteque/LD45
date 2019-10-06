@@ -13,7 +13,9 @@ public class CraftingProgress : ScriptableObject
 public class CraftingLevel
 {
     public List<SpawnChance> ResourceSpawnPercentages;
-    public float SpawnCooldown;
+    public float ResourceSpawnCooldown;
+    public List<SpawnChance> EnemySpawnPercentages;
+    public float EnemySpawnCooldown;
     public float PointsNeededToLevel;
 }
 

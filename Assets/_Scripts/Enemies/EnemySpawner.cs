@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class ResourceSpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
-    public List<GameItem> Resources;
-    public Vector2 RotationSpeed;
-    public Vector2 MovementTimeToPlayer;
+    public List<Enemy> Enemies;
 
-    private Camera _camera;
     private bool _spawning;
     private List<CraftingLevel> _levels;
     private PlayerScript _player;
+    private Camera _camera;
 
     void Start()
     {
         _camera = Camera.main;
         _levels = CraftingSystem.Instance.Progress.Levels;
-        Resources = Resources.OrderBy(x => x.CraftingValue).ToList();
+        Enemies = Enemies.OrderBy(x => x.level).ToList();
         _player = FindObjectOfType<PlayerScript>();
         StartSpawning();
     }
@@ -38,7 +36,7 @@ public class ResourceSpawner : MonoBehaviour
     {
         while (_spawning)
         {
-            yield return new WaitForSeconds(_levels[CraftingSystem.Instance.CurrentLevel].ResourceSpawnCooldown);
+            yield return new WaitForSeconds(_levels[CraftingSystem.Instance.CurrentLevel].EnemySpawnCooldown);
             SpawnObject();
         }
     }
@@ -46,12 +44,12 @@ public class ResourceSpawner : MonoBehaviour
     private void SpawnObject()
     {
         float rnd = Random.Range(0, 100);
-        GameItem toSpawn = null;
-        foreach (var level in _levels[CraftingSystem.Instance.CurrentLevel].ResourceSpawnPercentages)
+        Enemy toSpawn = null;
+        foreach (var level in _levels[CraftingSystem.Instance.CurrentLevel].EnemySpawnPercentages)
         {
             if (rnd <= level.Percentage)
             {
-                toSpawn = Resources[level.Index];
+                toSpawn = Enemies[level.Index];
                 break;
             }
             else
@@ -60,45 +58,33 @@ public class ResourceSpawner : MonoBehaviour
             }
         }
         Vector3 spawnPos = GetSpawnPosition();
-        Quaternion quaternion = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
-        GameObject go = Instantiate(toSpawn.prefab, _player.transform.position + spawnPos, quaternion);
-        Vector3 trajectory = GetTrajectory(_player.transform.position + spawnPos);
-        Vector3 rotationSpeed = GetRotationSpeed();
-        
-        CollectableScrap scrap = go.AddComponent(typeof(CollectableScrap)) as CollectableScrap;
-        scrap.Init(trajectory, rotationSpeed, toSpawn);
-    }  
+        GameObject go = Instantiate(toSpawn.prefab, _player.transform.position + spawnPos, Quaternion.identity);
+        Vector3 startVelocity = GetStartVelocity(spawnPos);
+
+        EnemyBehavior enemy = go.AddComponent(typeof(EnemyBehavior)) as EnemyBehavior;
+        enemy.Init(Random.Range(toSpawn.hitPoints.x, toSpawn.hitPoints.y), Random.Range(toSpawn.aggroRange.x, toSpawn.aggroRange.y) * Vector3.Distance(spawnPos, _player.transform.position), 
+            Random.Range(toSpawn.acceleration.x, toSpawn.acceleration.y), startVelocity, toSpawn.weapon);
+    }
 
     private Vector3 GetSpawnPosition()
     {
         var frustumHeight = 2.0f * _camera.transform.position.y * Mathf.Tan(_camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
         var frustumWidth = frustumHeight * _camera.aspect;
         var spawnRadius = Mathf.Sqrt(Mathf.Pow(frustumHeight, 2f) + Mathf.Pow(frustumWidth, 2f));
-        spawnRadius *= Random.Range(1.1f, 1.2f);
+        spawnRadius *= Random.Range(1.5f, 2.0f);
         Vector2 rnd = Random.insideUnitCircle;
         rnd = rnd.normalized;
         Vector3 spawnPos = new Vector3(rnd.x * spawnRadius, 0f, rnd.y * spawnRadius);
         return spawnPos;
     }
 
-    private Vector3 GetTrajectory(Vector3 spawnPos, bool directlyTowardsPlayer = false)
+    private Vector3 GetStartVelocity(Vector3 spawnPos)
     {
-        float durationToPlayer = Random.Range(MovementTimeToPlayer.x, MovementTimeToPlayer.y);
+        float durationToPlayer = Random.Range(10, 15);
         Vector3 target = _player.transform.position + _player.GetComponent<Rigidbody>().velocity * durationToPlayer;
         Vector2 rnd = Vector2.zero;
-        if (!directlyTowardsPlayer)
-        {
-            rnd = Random.insideUnitCircle * Mathf.Clamp(_player.GetComponent<Rigidbody>().velocity.magnitude * 0.01f, 5, 100);
-        }
         target = new Vector3(target.x + rnd.x, 0, target.z + rnd.y);
         Vector3 result = (target - spawnPos) / durationToPlayer;
-        return result;
-    }
-
-    private Vector3 GetRotationSpeed()
-    {
-        Vector3 angle = new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
-        Vector3 result = angle.normalized * Random.Range(RotationSpeed.x, RotationSpeed.y);
         return result;
     }
 }

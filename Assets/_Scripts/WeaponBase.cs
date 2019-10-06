@@ -20,9 +20,9 @@ public abstract class WeaponBase : MonoBehaviour
     [SerializeField] protected Transform m_origin;
     
     /// <summary>
-    /// every weapon needs to have something happen when you shoot. when overrideing, always call this base function since it will track cooldown
+    /// every weapon needs to have something happen when you shoot. when overriding, always call this base function since it will track cooldown
     /// </summary>
-    public virtual void Shoot()
+    public virtual void Shoot(float flySpeed)
     {
         StartCoroutine(RunCooldown());
     }

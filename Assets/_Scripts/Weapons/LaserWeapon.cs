@@ -6,17 +6,10 @@ public class LaserWeapon : WeaponBase
     [SerializeField] private GameObject laserBeam;
     [SerializeField] private float projectileSpeed;
     
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Shoot();
-        }
-    }
     
-    public override void Shoot()
+    public override void Shoot(float flySpeed)
     {
-        base.Shoot();
+        base.Shoot(flySpeed);
         Debug.Log("Shooting with Laser");
 
         var mousePos = Utils.GetMousePositionOn2DPlane();

@@ -125,6 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyDelay: 5
+  damage: 1
+  player: 1
 --- !u!65 &9105969814428455954
 BoxCollider:
   m_ObjectHideFlags: 0

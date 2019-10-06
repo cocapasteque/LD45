@@ -74,7 +74,7 @@ public class PlayerScript : MonoBehaviour
     private void Start()
     {
         // give the player an initial push toward the thruster
-        m_rb.AddForce(this.transform.forward * 00.0f);
+        m_rb.AddForce(this.transform.forward * 0.0f);
 
         m_shooting_coroutine = StartCoroutine(Shoot());
         m_default_camera_distance = (m_camera.transform.position - m_player_mesh.transform.position).magnitude;
@@ -98,7 +98,7 @@ public class PlayerScript : MonoBehaviour
             {
                 foreach (var weapon in m_weapons.Where(weapon => !weapon.On_Cooldown))
                 {
-                    weapon.Shoot();
+                    weapon.Shoot(m_rb.velocity.magnitude);
                 }
             }
 

@@ -6,6 +6,8 @@ public class Projectile : MonoBehaviour
     private float m_travelSpeed;
     private bool m_launched = false;
     [SerializeField] private float destroyDelay;
+    [SerializeField] private float damage;
+    [SerializeField] private bool player;
     
     private void Update()
     {
@@ -24,11 +26,22 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Enemy"))
+        if (player)
         {
-            Destroy(this.gameObject);
-            
-            //TODO Enemy collision handling.
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                Destroy(this.gameObject);
+                other.GetComponent<EnemyBehavior>().TakeDamages(damage);
+            }
+        }
+        else
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+
+                Destroy(this.gameObject);
+                other.GetComponent<PlayerScript>().TakeDamages(damage);
+            }
         }
     }
 }
