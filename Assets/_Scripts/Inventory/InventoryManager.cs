@@ -144,6 +144,16 @@ public class InventoryManager : SerializedMonoBehaviour
             if (AvailableItems.ContainsKey(created)) AvailableItems[created]++;
             else AvailableItems.Add(created, 1);
         }
+
+        if (created != null && created.type == ItemType.Repair)
+        {
+            FindObjectOfType<PlayerScript>().Heal(created.CraftingValue);
+        }
+
+        if (created != null && created.type == ItemType.Finder)
+        {
+            //TODO: FIND EARTH
+        }
         
         ClearAllSlots(false);
     }

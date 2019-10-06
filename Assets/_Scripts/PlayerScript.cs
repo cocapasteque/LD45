@@ -139,7 +139,7 @@ public class PlayerScript : MonoBehaviour
     {
         // the faster the player is, the further away the camera is from him
         m_camera.transform.position = m_player_mesh.transform.position + Vector3.up*(m_default_camera_distance + m_rb.velocity.magnitude);
-        var remaped = m_rb.velocity.magnitude.Remap(0, 10, 0, 1);
+        var remaped = m_rb.velocity.magnitude.Remap(0, _maxSpeed, 0, 1);
         _postProcSpeed.weight = remaped;
         m_camera.fieldOfView = _fovCurve.Evaluate(remaped);
     }

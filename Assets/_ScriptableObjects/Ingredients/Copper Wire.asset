@@ -16,4 +16,4 @@ MonoBehaviour:
   type: 0
   icon: {fileID: 21300000, guid: 26c04f23e1753d24ab1be361532691b4, type: 3}
   prefab: {fileID: 7886229699206030096, guid: c080051fbdc320744bd23242c8fe28cc, type: 3}
-  CraftingValue: 5
+  CraftingValue: 8

@@ -16,6 +16,8 @@ public class CraftingLevel
     public float ResourceSpawnCooldown;
     public List<SpawnChance> EnemySpawnPercentages;
     public float EnemySpawnCooldown;
+    public List<SpawnChance> BlueprintSpawnPercentages;
+    public float BlueprintSpawnCooldown;
     public float PointsNeededToLevel;
 }
 

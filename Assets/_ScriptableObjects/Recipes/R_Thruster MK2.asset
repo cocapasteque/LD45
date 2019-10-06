@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e3481c93a414245a0cd9000b0850b14, type: 3}
-  m_Name: R_Laser MK1
+  m_Name: R_Thruster MK2
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 4259104c183292544839fafdd2128c12, type: 2}
     - {fileID: 11400000, guid: 3e197820286c1dc4fa6cbff568d2aa29, type: 2}
-    - {fileID: 11400000, guid: f6ef5fb900050384290c6220563dba21, type: 2}
-    - {fileID: 11400000, guid: dece8e04003379d4aad138d081c312a3, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -37,7 +36,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -46,31 +45,19 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
-      Data: 1
-    - Name: $v
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 10
       Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 1
     - Name: $v
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -80,5 +67,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  itemName: Laser MK1
-  result: {fileID: 11400000, guid: d0dd734631fa21b44b9d635deb3a8bc8, type: 2}
+  itemName: Thruster MK2
+  result: {fileID: 11400000, guid: 739041bb74e474a43b14089d7689d651, type: 2}

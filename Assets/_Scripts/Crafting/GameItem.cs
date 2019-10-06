@@ -25,5 +25,5 @@ public class GameItem : ScriptableObject
 
 public enum ItemType
 {
-    Ingredient, Blueprint, Equipment
+    Ingredient, Blueprint, Equipment, Repair, Finder
 }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34b7597c796c445196de64a6dbc4d505, type: 3}
-  m_Name: Iron Cog
+  m_Name: E_ThrusterMK3
   m_EditorClassIdentifier: 
-  itemName: Iron Cog
-  type: 0
-  icon: {fileID: 21300000, guid: 8f85459e21789ee40be0e4afb634a446, type: 3}
-  prefab: {fileID: 5638726456918174634, guid: 664d1d3893b8cb545a941fe51f073c53, type: 3}
-  CraftingValue: 5
+  itemName: Thruster MK3
+  type: 2
+  icon: {fileID: 0}
+  prefab: {fileID: 2584163265952677571, guid: 82763ab647fbc7e4194944d7ff5ae722, type: 3}
+  CraftingValue: 0

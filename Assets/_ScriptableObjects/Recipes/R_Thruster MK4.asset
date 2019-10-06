@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e3481c93a414245a0cd9000b0850b14, type: 3}
-  m_Name: R_Circuit Board
+  m_Name: R_Thruster MK4
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: f297b794391a7d8468f3665286727397, type: 2}
-    - {fileID: 11400000, guid: 3e197820286c1dc4fa6cbff568d2aa29, type: 2}
+    - {fileID: 11400000, guid: 5fbe7ea87914b824f9d27264d450a604, type: 2}
+    - {fileID: 11400000, guid: 907a0a9adc0cf5f488c52a929595e935, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -25,8 +25,8 @@ MonoBehaviour:
     SerializationNodes:
     - Name: compos
       Entry: 7
-      Data: 0|UnityEngine.Rendering.SerializedDictionary`2[[GameItem, Assembly-CSharp],[System.Int32,
-        mscorlib]], Unity.RenderPipelines.Core.Runtime
+      Data: 0|System.Collections.Generic.Dictionary`2[[GameItem, Assembly-CSharp],[System.Int32,
+        mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[GameItem, Assembly-CSharp]],
@@ -45,7 +45,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -57,7 +57,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -67,5 +67,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  itemName: Circuit Board
-  result: {fileID: 11400000, guid: f6ef5fb900050384290c6220563dba21, type: 2}
+  itemName: Thruster MK4
+  result: {fileID: 11400000, guid: fb18d98bc456874488b45469fe55c28b, type: 2}

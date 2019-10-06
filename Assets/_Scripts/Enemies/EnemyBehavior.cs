@@ -55,8 +55,16 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    private void Explode()
+    private void Explode(float dmg = 0)
     {
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Explode(_hitPoints);
+        }
     }
 }

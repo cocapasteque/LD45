@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2266577151278008114}
   - component: {fileID: 3018396798526484376}
   m_Layer: 0
-  m_Name: Thruster MK1
+  m_Name: Thruster MK4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,4 +123,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba3a3398d23c514d9a879306e431724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_thrust_strength: 15
+  m_thrust_strength: 75

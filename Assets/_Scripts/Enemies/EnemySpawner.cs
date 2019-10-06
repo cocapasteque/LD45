@@ -57,13 +57,16 @@ public class EnemySpawner : MonoBehaviour
                 rnd -= level.Percentage;
             }
         }
-        Vector3 spawnPos = GetSpawnPosition();
-        GameObject go = Instantiate(toSpawn.prefab, _player.transform.position + spawnPos, Quaternion.identity);
-        Vector3 startVelocity = GetStartVelocity(spawnPos);
+        if (toSpawn != null)
+        {
+            Vector3 spawnPos = GetSpawnPosition();
+            GameObject go = Instantiate(toSpawn.prefab, _player.transform.position + spawnPos, Quaternion.identity);
+            Vector3 startVelocity = GetStartVelocity(spawnPos);
 
-        EnemyBehavior enemy = go.AddComponent(typeof(EnemyBehavior)) as EnemyBehavior;
-        enemy.Init(Random.Range(toSpawn.hitPoints.x, toSpawn.hitPoints.y), Random.Range(toSpawn.aggroRange.x, toSpawn.aggroRange.y) * Vector3.Distance(spawnPos, _player.transform.position), 
-            Random.Range(toSpawn.acceleration.x, toSpawn.acceleration.y), startVelocity);
+            EnemyBehavior enemy = go.AddComponent(typeof(EnemyBehavior)) as EnemyBehavior;
+            enemy.Init(Random.Range(toSpawn.hitPoints.x, toSpawn.hitPoints.y), Random.Range(toSpawn.aggroRange.x, toSpawn.aggroRange.y) * Vector3.Distance(spawnPos, _player.transform.position),
+                Random.Range(toSpawn.acceleration.x, toSpawn.acceleration.y), startVelocity);
+        }
     }
 
     private Vector3 GetSpawnPosition()

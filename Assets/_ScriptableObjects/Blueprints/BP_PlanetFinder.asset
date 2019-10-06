@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 336217fb1e1945ac9613a7f56856570a, type: 3}
-  m_Name: BP_Missiles MK1
+  m_Name: BP_PlanetFinder
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,5 +21,6 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  itemName: Missiles MK1
-  recipe: {fileID: 11400000, guid: eb5ccfdd5dbefef499eebf243c23fdac, type: 2}
+  itemName: Planet Finder
+  recipe: {fileID: 11400000, guid: b07f0fa4772f7ab46bf67fb173220d76, type: 2}
+  level: 9

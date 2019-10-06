@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class ResourceSpawner : MonoBehaviour
+public class BlueprintSpawner : MonoBehaviour
 {
-    public List<GameItem> Resources;
+    public List<Blueprint> Blueprints;
     public Vector2 RotationSpeed;
     public Vector2 MovementTimeToPlayer;
+    public GameObject BlueprintPrefab;
 
     private Camera _camera;
     private bool _spawning;
@@ -18,7 +19,7 @@ public class ResourceSpawner : MonoBehaviour
     {
         _camera = Camera.main;
         _levels = CraftingSystem.Instance.Progress.Levels;
-        Resources = Resources.OrderBy(x => x.CraftingValue).ToList();
+        Blueprints = Blueprints.OrderBy(x => x.level).ToList();
         _player = FindObjectOfType<PlayerScript>();
         StartSpawning();
     }
@@ -46,12 +47,15 @@ public class ResourceSpawner : MonoBehaviour
     private void SpawnObject()
     {
         float rnd = Random.Range(0, 100);
-        GameItem toSpawn = null;
-        foreach (var level in _levels[CraftingSystem.Instance.CurrentLevel].ResourceSpawnPercentages)
+        Blueprint toSpawn = null;
+        foreach (var level in _levels[CraftingSystem.Instance.CurrentLevel].BlueprintSpawnPercentages)
         {
             if (rnd <= level.Percentage)
             {
-                toSpawn = Resources[level.Index];
+                if (CraftingSystem.Instance.unlockedBlueprints[Blueprints[level.Index]])
+                {
+                    toSpawn = Blueprints[level.Index];
+                }
                 break;
             }
             else
@@ -63,12 +67,12 @@ public class ResourceSpawner : MonoBehaviour
         {
             Vector3 spawnPos = GetSpawnPosition();
             Quaternion quaternion = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
-            GameObject go = Instantiate(toSpawn.prefab, _player.transform.position + spawnPos, quaternion);
-            Vector3 trajectory = GetTrajectory(_player.transform.position + spawnPos);
+            GameObject go = Instantiate(BlueprintPrefab, _player.transform.position + spawnPos, quaternion);
+            Vector3 trajectory = GetTrajectory(_player.transform.position + spawnPos, true);
             Vector3 rotationSpeed = GetRotationSpeed();
 
-            CollectableScrap scrap = go.AddComponent(typeof(CollectableScrap)) as CollectableScrap;
-            scrap.Init(trajectory, rotationSpeed, toSpawn);
+            CollectableBlueprint bp = go.AddComponent(typeof(CollectableBlueprint)) as CollectableBlueprint;
+            bp.Init(trajectory, rotationSpeed, toSpawn);
         }
     }
 

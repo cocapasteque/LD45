@@ -6,6 +6,7 @@ public class Blueprint : SerializedScriptableObject
 {
     public string itemName;
     public Recipe recipe;
+    public int level;
 
     public override bool Equals(object other)
     {
