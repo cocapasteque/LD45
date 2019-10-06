@@ -7,6 +7,7 @@ public class GameItem : ScriptableObject
     public ItemType type;
     public Sprite icon;
     public GameObject prefab;
+    public int CraftingValue;
 
     public override bool Equals(object other)
     {

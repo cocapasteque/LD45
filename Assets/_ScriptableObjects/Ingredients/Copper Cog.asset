@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: Copper Cog
   type: 0
   icon: {fileID: 21300000, guid: 2e23d35d9af0e4d4c8ebf66ecedf93bf, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 6060897508398505827, guid: b3db93d7f36eed54e903d331a3b2a4a3, type: 3}
+  CraftingValue: 2

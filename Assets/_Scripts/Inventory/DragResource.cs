@@ -53,6 +53,9 @@ public class DragResource : MonoBehaviour, IBeginDragHandler, IDragHandler, IPoi
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        InventoryManager.Instance.AddToNextEmptySlot(Item);
+        if (_amount > 0)
+        {
+            InventoryManager.Instance.AddToNextEmptySlot(Item);
+        }
     }   
 }

@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: Iron Beam
   type: 0
   icon: {fileID: 21300000, guid: c796821d6cfd9094a82456ab7664ce30, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 6740817029306846543, guid: d88202e3ce7b6b74099df1d07d805302, type: 3}
+  CraftingValue: 9

@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: Straight Pipe
   type: 0
   icon: {fileID: 21300000, guid: 5deaf85222238b14693b8e3d9c4fa663, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 8674279127140771194, guid: 6314a594bc499684880a780aed5d8c5d, type: 3}
+  CraftingValue: 3

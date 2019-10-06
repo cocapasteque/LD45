@@ -10,11 +10,20 @@ public class CraftingSystem : SerializedMonoBehaviour
 
     public List<Recipe> recipes;
     public Dictionary<Blueprint, bool> unlockedBlueprints;
+    public CraftingProgress Progress;
+
+    [HideInInspector]
+    public int CraftingScore;
+    [HideInInspector]
+    public int CurrentLevel;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else if (Instance != this) Destroy(this);
+
+        CraftingScore = 0;
+        CurrentLevel = 0;
     }
 
     public Recipe GetRecipeForItem(GameItem item)
@@ -38,9 +47,22 @@ public class CraftingSystem : SerializedMonoBehaviour
         }
 
         var result = recipes.FirstOrDefault(x => x.CheckRecipe(recipe))?.result;
-        if (result) HandleBlueprintUnlock(GetRecipeForItem(result));
+        if (result)
+        {
+            HandleBlueprintUnlock(GetRecipeForItem(result));
+            CraftingScore += ingredients.Sum(x => x.CraftingValue);
+            CheckLevel();
+        }
 
         return result;
+    }
+
+    private void CheckLevel()
+    {
+        if (CraftingScore > Progress.Levels[CurrentLevel].PointsNeededToLevel)
+        {
+            CurrentLevel++;
+        }
     }
 
     private void HandleBlueprintUnlock(Recipe recipe)

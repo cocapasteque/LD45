@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: Curved Pipe
   type: 0
   icon: {fileID: 21300000, guid: 1224dee360b1d1f4aab88b8c26d0e3ce, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 4049183346174900395, guid: bd6e7206b1bbd904cb7220b57fcced27, type: 3}
+  CraftingValue: 7

@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: Iron Cog
   type: 0
   icon: {fileID: 21300000, guid: 8f85459e21789ee40be0e4afb634a446, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 5638726456918174634, guid: 664d1d3893b8cb545a941fe51f073c53, type: 3}
+  CraftingValue: 8

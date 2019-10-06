@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: Spring
   type: 0
   icon: {fileID: 21300000, guid: 8e196de0cd6356441841a66936b8c8be, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 106620031439039178, guid: 377c5d0c5902b0b47abcbd864007c568, type: 3}
+  CraftingValue: 6
