@@ -114,4 +114,4 @@ MonoBehaviour:
     - Index: 9
       Percentage: 20
     SpawnCooldown: 1
-    PointsNeededToLevel: 0
+    PointsNeededToLevel: Infinity

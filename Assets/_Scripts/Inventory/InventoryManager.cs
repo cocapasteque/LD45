@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Linq;
+using JetBrains.Annotations;
 
 public class InventoryManager : SerializedMonoBehaviour
 {
@@ -10,7 +11,8 @@ public class InventoryManager : SerializedMonoBehaviour
 
     public List<GameItem> Items;
     public List<Blueprint> Bps;
-
+    public List<GameItem> Equipment;
+    
     public List<CraftingSlot> Slots;
 
     public Dictionary<GameItem, int> AvailableItems;
@@ -21,7 +23,8 @@ public class InventoryManager : SerializedMonoBehaviour
     public Transform BlueprintPanel;
 
     private Dictionary<GameItem, DragResource> ResourceButtons;
-
+    private PlayerScript _player;
+    
     void Awake()
     {
         if (Instance == null)
@@ -34,6 +37,9 @@ public class InventoryManager : SerializedMonoBehaviour
         }
         AvailableItems = new Dictionary<GameItem, int>();
         ResourceButtons = new Dictionary<GameItem, DragResource>();
+        Equipment = new List<GameItem>();
+
+        _player = FindObjectOfType<PlayerScript>();
     }
 
     private void Update()
@@ -123,7 +129,22 @@ public class InventoryManager : SerializedMonoBehaviour
     public void CreateObject()
     {
         GameItem[] items = GetCurrentCraftingBar();
-        CraftingSystem.Instance.Craft(items);
+        var created = CraftingSystem.Instance.Craft(items);
+        if (created != null && created.type == ItemType.Equipment)
+        {
+            Equipment.Add(created);
+            if (created.prefab.GetComponent<Thruster>() != null)
+            {
+                _player.AddThruster(created.prefab.GetComponent<Thruster>());
+            }
+        }
+
+        if (created != null && created.type == ItemType.Ingredient)
+        {
+            if (AvailableItems.ContainsKey(created)) AvailableItems[created]++;
+            else AvailableItems.Add(created, 1);
+        }
+        
         ClearAllSlots(false);
     }
 

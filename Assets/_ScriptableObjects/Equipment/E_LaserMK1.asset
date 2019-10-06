@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34b7597c796c445196de64a6dbc4d505, type: 3}
-  m_Name: E_ThrusterMK1
+  m_Name: E_LaserMK1
   m_EditorClassIdentifier: 
-  itemName: Thruster MK1
+  itemName: Laser MK1
   type: 2
   icon: {fileID: 0}
-  prefab: {fileID: 2584163265952677571, guid: 56de0593297b8aa4ba99e2c5affcb3f3, type: 3}
+  prefab: {fileID: 0}
   CraftingValue: 0

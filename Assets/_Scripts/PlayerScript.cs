@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SphereCollider))]
@@ -46,6 +47,10 @@ public class PlayerScript : MonoBehaviour
         set => _health = Mathf.Clamp(value, 0, 100);
     }
 
+
+    [SerializeField] private Volume _postProcSpeed;
+    [SerializeField] private AnimationCurve _fovCurve;
+    [SerializeField] private float _maxSpeed;
     #endregion
     
     #region UNITY LIFECYCLE
@@ -81,18 +86,6 @@ public class PlayerScript : MonoBehaviour
         HandleThrusting();
         HandleCamera();
     }
-
-    // TODO Move this code to pickup object logic
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (!collision.gameObject.CompareTag("Thruster")) return;
-        
-        // we need to set our thruster to the one we now collided with, and get rid of it visually be reparenting it and scaling to 0
-        m_thrusters.Add(collision.gameObject.GetComponent<Thruster>());
-        collision.transform.SetParent(this.transform);
-        collision.transform.localScale = Vector3.zero;
-    }
-
     #endregion
 
     #region PLAYER FUNCTIONS
@@ -120,6 +113,8 @@ public class PlayerScript : MonoBehaviour
     }
     private void HandleShooting()
     {
+        if (LordGameManager.Instance.UIOpened) return;
+        
         if (Input.GetMouseButtonDown(0))
         {
             m_shooting = true;
@@ -137,18 +132,29 @@ public class PlayerScript : MonoBehaviour
         {
             m_rb.AddForce(Time.deltaTime * thruster.Thrust_Strength * m_player_mesh.transform.forward);
         }
+
+        m_rb.velocity = Vector3.ClampMagnitude(m_rb.velocity, _maxSpeed);
     }
     private void HandleCamera()
     {
+        Debug.Log(m_rb.velocity.magnitude);
         // the faster the player is, the further away the camera is from him
         m_camera.transform.position = m_player_mesh.transform.position + Vector3.up*(m_default_camera_distance + m_rb.velocity.magnitude);
+        _postProcSpeed.weight = m_rb.velocity.magnitude.Remap(0, 10, 0, 1);
+        m_camera.fieldOfView = m_rb.velocity.magnitude.Remap(0,10,40,150);
     }
 
+
+    public void AddThruster(Thruster thruster)
+    {
+        var created = Instantiate(thruster.gameObject, this.transform, true);
+        m_thrusters.Add(created.GetComponent<Thruster>());
+        created.transform.localScale = Vector3.zero;
+    }
     public void TakeDamages(float val)
     {
         Health -= val;
     }
-
     public void Heal(float val)
     {
         Health += val;

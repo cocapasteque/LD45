@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Doozy.Engine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LordGameManager : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class LordGameManager : MonoBehaviour
     [SerializeField] private MeshRenderer _fadePlane;
     [SerializeField] private float _fadeTime;
 
-    private bool _inventoryOpen = false;
+    public bool UIOpened = false;
     
     private void Awake()
     {
@@ -34,14 +35,14 @@ public class LordGameManager : MonoBehaviour
     private void Update()
     {
         // Inventory open/close logic
-        if (!_inventoryOpen && (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown(KeyCode.I)))
+        if (!UIOpened && (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown(KeyCode.I)))
         {
-            _inventoryOpen = true;
+            UIOpened = true;
             GameEventMessage.SendEvent("OpenInventory");
         }
-        else if (_inventoryOpen && (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown(KeyCode.I)))
+        else if (UIOpened && (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown(KeyCode.I)))
         {
-            _inventoryOpen = false;
+            UIOpened = false;
             GameEventMessage.SendEvent("CloseInventory");
         }
     }

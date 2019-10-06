@@ -57,6 +57,7 @@ public class CraftingSystem : SerializedMonoBehaviour
         var result = recipes.FirstOrDefault(x => x.CheckRecipe(recipe))?.result;
         if (result)
         {
+            Debug.Log($"Crafted {result.itemName}");
             HandleBlueprintUnlock(GetRecipeForItem(result));
             CraftingScore += ingredients.Sum(x => x.CraftingValue);
             CheckLevel();
@@ -76,11 +77,17 @@ public class CraftingSystem : SerializedMonoBehaviour
     private void HandleBlueprintUnlock(Recipe recipe)
     {
         var bp = unlockedBlueprints.FirstOrDefault(x => x.Key.recipe == recipe).Key;
-        if (bp) UnlockBlueprint(bp);
+        if (bp)
+        {
+            Debug.Log($"Found recipe {recipe.itemName} for bp {bp.itemName}");
+            UnlockBlueprint(bp);
+        }
     }
 
     public void UnlockBlueprint(Blueprint bp)
     {
+        if (unlockedBlueprints[bp]) return;
+        
         unlockedBlueprints[bp] = true;
         InventoryManager.Instance.AddBlueprint(bp);
     }
