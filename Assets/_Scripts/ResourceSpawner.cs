@@ -7,7 +7,7 @@ public class ResourceSpawner : MonoBehaviour
 {
     public List<GameItem> Resources;
     public Vector2 RotationSpeed;
-    public Vector2 MovementSpeed;
+    public Vector2 MovementTimeToPlayer;
 
     private Camera _camera;
     private bool _spawning;
@@ -74,18 +74,24 @@ public class ResourceSpawner : MonoBehaviour
         var frustumHeight = 2.0f * _camera.transform.position.y * Mathf.Tan(_camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
         var frustumWidth = frustumHeight * _camera.aspect;
         var spawnRadius = Mathf.Sqrt(Mathf.Pow(frustumHeight, 2f) + Mathf.Pow(frustumWidth, 2f));
-        spawnRadius *= Random.Range(1.1f, 1.3f);
+        spawnRadius *= Random.Range(1.1f, 1.2f);
         Vector2 rnd = Random.insideUnitCircle;
+        rnd = rnd.normalized;
         Vector3 spawnPos = new Vector3(rnd.x * spawnRadius, 0f, rnd.y * spawnRadius);
         return spawnPos;
     }
 
-    //TODO REDO!!!
-    private Vector3 GetTrajectory(Vector3 spawnPos)
+    private Vector3 GetTrajectory(Vector3 spawnPos, bool directlyTowardsPlayer = false)
     {
-        Vector3 dir = _player.transform.position + _player.GetComponent<Rigidbody>().velocity - spawnPos;
-        Vector3 result = dir * Random.Range(MovementSpeed.x, MovementSpeed.y);
-        result = new Vector3(result.x, 0, result.z);
+        float durationToPlayer = Random.Range(MovementTimeToPlayer.x, MovementTimeToPlayer.y);
+        Vector3 target = _player.transform.position + _player.GetComponent<Rigidbody>().velocity * durationToPlayer;
+        Vector2 rnd = Vector2.zero;
+        if (!directlyTowardsPlayer)
+        {
+            rnd = Random.insideUnitCircle * Mathf.Clamp(_player.GetComponent<Rigidbody>().velocity.magnitude * 0.01f, 5, 100);
+        }
+        target = new Vector3(target.x + rnd.x, 0, target.z + rnd.y);
+        Vector3 result = (target - spawnPos) / durationToPlayer;
         return result;
     }
 
