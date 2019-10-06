@@ -5,8 +5,8 @@ public class Projectile : MonoBehaviour
 {
     private float m_travelSpeed;
     private bool m_launched = false;
-    [SerializeField] private float destroyDelay;
-    [SerializeField] private float damage;
+    private float m_damage = 0;
+    [SerializeField] private float destroyDelay;    
     [SerializeField] private bool player;
     
     private void Update()
@@ -17,10 +17,11 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void Launch(float travelSpeed)
+    public void Launch(float travelSpeed, float damage)
     {
         m_travelSpeed = travelSpeed;
         m_launched = true;
+        m_damage = damage;
         Destroy(this.gameObject, destroyDelay);
     }
 
@@ -29,18 +30,17 @@ public class Projectile : MonoBehaviour
         if (player)
         {
             if (other.gameObject.CompareTag("Enemy"))
-            {
+            {               
+                other.GetComponent<EnemyBehavior>().TakeDamages(m_damage);
                 Destroy(this.gameObject);
-                other.GetComponent<EnemyBehavior>().TakeDamages(damage);
             }
         }
         else
         {
             if (other.gameObject.CompareTag("Player"))
             {
-
-                Destroy(this.gameObject);
-                other.GetComponent<PlayerScript>().TakeDamages(damage);
+                other.GetComponent<PlayerScript>().TakeDamages(m_damage);
+                Destroy(this.gameObject);               
             }
         }
     }

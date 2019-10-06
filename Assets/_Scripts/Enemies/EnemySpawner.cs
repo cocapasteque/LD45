@@ -63,7 +63,7 @@ public class EnemySpawner : MonoBehaviour
 
         EnemyBehavior enemy = go.AddComponent(typeof(EnemyBehavior)) as EnemyBehavior;
         enemy.Init(Random.Range(toSpawn.hitPoints.x, toSpawn.hitPoints.y), Random.Range(toSpawn.aggroRange.x, toSpawn.aggroRange.y) * Vector3.Distance(spawnPos, _player.transform.position), 
-            Random.Range(toSpawn.acceleration.x, toSpawn.acceleration.y), startVelocity, toSpawn.weapon);
+            Random.Range(toSpawn.acceleration.x, toSpawn.acceleration.y), startVelocity);
     }
 
     private Vector3 GetSpawnPosition()

@@ -5,6 +5,7 @@ public class LaserWeapon : WeaponBase
 {
     [SerializeField] private GameObject laserBeam;
     [SerializeField] private float projectileSpeed;
+    [SerializeField] private float damage;
     
     
     public override void Shoot(float flySpeed)
@@ -20,6 +21,6 @@ public class LaserWeapon : WeaponBase
         beam.transform.position = m_origin.position;
         beam.transform.LookAt(mousePos.Value);
         
-        beam.GetComponent<Projectile>()?.Launch(projectileSpeed);
+        beam.GetComponent<Projectile>()?.Launch(projectileSpeed, damage);
     }
 }
