@@ -34,15 +34,15 @@ public class ParallaxBackground : MonoBehaviour
 
     private void CheckSides()
     {
-        var leftRay = _camera.ViewportPointToRay(new Vector3(0.5f, 0f - _extent));
-        var rightRay = _camera.ViewportPointToRay(new Vector3(0.5f, 1f + _extent));
-        var topRay = _camera.ViewportPointToRay(new Vector3(1f + _extent, 0.5f));
-        var bottomRay = _camera.ViewportPointToRay(new Vector3(0f - _extent, 0.5f));
+        var leftRay = _camera.ViewportPointToRay(new Vector3(0f - _extent, 0.5f));
+        var rightRay = _camera.ViewportPointToRay(new Vector3(1f + _extent, 0.5f));
+        var topRay = _camera.ViewportPointToRay(new Vector3(0.5f, 1f + _extent));
+        var bottomRay = _camera.ViewportPointToRay(new Vector3(0.5f, 0f - _extent));
 
-        var topRight = _camera.ViewportPointToRay(new Vector3(1 + _extent, 1 + _extent));
-        var topLeft = _camera.ViewportPointToRay(new Vector3(0 - _extent, 1 + _extent));
-        var botRight = _camera.ViewportPointToRay(new Vector3(1 + _extent, 0 - _extent));
-        var botLeft = _camera.ViewportPointToRay(new Vector3(0 - _extent, 0 - _extent));
+        var topRight = _camera.ViewportPointToRay(new Vector3(1f + _extent, 1f+ _extent));
+        var topLeft = _camera.ViewportPointToRay(new Vector3(0f - _extent, 1f + _extent));
+        var botRight = _camera.ViewportPointToRay(new Vector3(1f + _extent, 0f - _extent));
+        var botLeft = _camera.ViewportPointToRay(new Vector3(0f - _extent, 0f - _extent));
 
         Debug.DrawRay(leftRay.origin, leftRay.direction * _debugLength, Color.red);
         Debug.DrawRay(rightRay.origin, rightRay.direction * _debugLength, Color.red);
@@ -61,14 +61,14 @@ public class ParallaxBackground : MonoBehaviour
         {
             var background = Instantiate(_backgroundObject, transform);
             background.transform.position =
-                new Vector3(bounds.center.x + 2 * bounds.extents.x, bounds.center.y, bounds.center.z);
+                new Vector3(bounds.center.x - 2 * bounds.extents.x, bounds.center.y, bounds.center.z);
         }
 
         if (!Physics.Raycast(rightRay, out _, 100, _backgroundLayer))
         {
             var background = Instantiate(_backgroundObject, transform);
             background.transform.position =
-                new Vector3(bounds.center.x - 2 * bounds.extents.x, bounds.center.y, bounds.center.z);
+                new Vector3(bounds.center.x + 2 * bounds.extents.x, bounds.center.y, bounds.center.z);
         }
 
         if (!Physics.Raycast(topRay, out _, 100, _backgroundLayer))
